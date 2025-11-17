@@ -1,12 +1,330 @@
 ﻿<Window x:Class="MetroTherm.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MetroTherm"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="EnergiKonvertering - Varmemester"
+        Height="720" Width="1000"
+        WindowStartupLocation="CenterScreen">
 
+
+
+    <Grid>
+        <!-- Hovedlayout: 
+             Row 0 = Topbar
+             Row 1 = Indhold (venstre filter + hovedindhold) -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <!-- Topbar -->
+            <RowDefinition Height="*"/>
+            <!-- Resten -->
+        </Grid.RowDefinitions>
+
+        <!-- TOPBAR -->
+        <DockPanel Grid.Row="0" Background="#2D3E50" LastChildFill="True">
+            <!-- Logo / tekst til venstre -->
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Margin="10,0">
+                <TextBlock Text="EnergiKonvertering"
+                           VerticalAlignment="Center"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="White"/>
+                <TextBlock Text="  – Varmemester"
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           Foreground="LightGray"/>
+            </StackPanel>
+
+            <!-- Simpel “menu” til højre (kun visuelt, ikke nødvendigvis funktionel endnu) -->
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" Margin="0,0,20,0"/>
+        </DockPanel>
+
+        <!-- HOVEDINDHOLD: Venstre filter + TabControl -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="260"/>
+                <!-- Venstre panel -->
+                <ColumnDefinition Width="*"/>
+                <!-- Hovedindhold -->
+            </Grid.ColumnDefinitions>
+
+            <!-- VENSTRE FILTERPANEL -->
+            <Border Grid.Column="0" BorderBrush="#CCCCCC" BorderThickness="0,0,1,0" Background="#F5F5F5">
+                <StackPanel Margin="10">
+
+                    <TextBlock Text="Filtre" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+
+                    <!-- Periode-filter -->
+                    <GroupBox Header="Periode" Margin="0,0,0,10">
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Fra dato:"/>
+                            <DatePicker x:Name="FromDatePicker" Margin="0,0,0,5"/>
+                            <TextBlock Text="Til dato:"/>
+                            <DatePicker x:Name="ToDatePicker"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <!-- Ejendom / bygning -->
+
+                    <!-- Søgning -->
+                    <GroupBox Header="Søgning" Margin="0,0,0,10">
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Søg (kunde, udstyr...)" Margin="0,0,0,5"/>
+                            <TextBox x:Name="SearchTextBox" />
+                            <Button Content="Søg" Margin="0,10,0,0" />
+                        </StackPanel>
+                    </GroupBox>
+
+                </StackPanel>
+            </Border>
+
+            <!-- HOVEDOMRÅDE MED FANER -->
+            <TabControl Grid.Column="1" Margin="10">
+                <!-- DASHBOARD -->
+                <TabItem Header="Dashboard">
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="66*"/>
+                            <ColumnDefinition Width="281*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Dashboard" 
+                                   FontSize="20" FontWeight="Bold" Margin="0,0,0,10" Grid.ColumnSpan="2"/>
+
+                        <!-- Her kan du senere placere kort/overblik -->
+                        <UniformGrid Grid.Row="1" Rows="1" Columns="3" Margin="0,10,0,0" Grid.ColumnSpan="2">
+                            <Border BorderBrush="#CCCCCC" BorderThickness="1" Margin="5" Padding="10">
+                                <StackPanel>
+                                    <TextBlock Text="Seneste aflæsninger" FontWeight="Bold"/>
+                                    <TextBlock Text="(liste / summering ...)" FontStyle="Italic"/>
+                                </StackPanel>
+                            </Border>
+                            <Border BorderBrush="#CCCCCC" BorderThickness="1" Margin="5" Padding="10">
+                                <StackPanel>
+                                    <TextBlock Text="Månedens forbrug/omsætning" FontWeight="Bold"/>
+                                    <TextBlock Text="(graf eller nøgletal ...)" FontStyle="Italic"/>
+                                </StackPanel>
+                            </Border>
+                        </UniformGrid>
+                    </Grid>
+                </TabItem>
+
+                <!-- UDSTYR & MÅLINGER -->
+                <TabItem Header="Energiforbug">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <!-- Topkontroller -->
+                            <RowDefinition Height="*"/>
+                            <!-- Tabel -->
+                        </Grid.RowDefinitions>
+
+                        <!-- TOPLINJE MED KNAP + FILTER -->
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
+                            <Button Content="vælg udstyr"
+            Margin="0,0,10,0"
+            Padding="10,5" ></Button>
+
+
+                            <!-- 🚀 Her er de TextBoxes du mangler -->
+                            <StackPanel Orientation="Horizontal" Margin="10,0,0,0"/>
+                        </StackPanel>
+
+
+
+                        <!-- UDSTYRS-TABEL -->
+                        <DataGrid Grid.Row="1"
+          x:Name="EquipmentDataGrid"
+          AutoGenerateColumns="False"
+          IsReadOnly="True"
+          ItemsSource="{Binding Equipments}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Udstyr-ID" Binding="{Binding DeviceId}" Width="*"/>
+                                <DataGridTextColumn Header="Navn/placering" Binding="{Binding ProductName}" Width="2*"/>
+                                <DataGridTextColumn Header="Model" Binding="{Binding Model}" Width="*"/>
+                                <DataGridTextColumn Header="Forbundet?" Binding="{Binding ConnectionState}" Width="*"/>
+                                <DataGridTextColumn Header="Forbrug" Binding="{Binding ConnectionState}" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                    </Grid>
+                </TabItem>
+
+                <!-- KUNDER & TILKNYTNING -->
+                <TabItem Header="Kundeliste">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <!-- Søg/topkontroller -->
+                            <RowDefinition Height="*"/>
+                            <!-- Tabel -->
+                        </Grid.RowDefinitions>
+
+                        <!-- TOPLINJE -->
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
+
+
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Id:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                                <TextBox x:Name="TxtCustomerId" Width="80" Margin="0,0,10,0"/>
+
+                                <TextBlock Text="Navn:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                                <TextBox x:Name="TxtCustomerName" Width="150" Margin="0,0,10,0"/>
+
+                                <TextBlock Text="Adresse:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                                <TextBox x:Name="TxtCustomerAddress" Width="200" Margin="0,0,10,0"/>
+                            </StackPanel>
+                        </StackPanel>
+
+
+                        <!-- KUNDE-TABEL -->
+                        <DataGrid Grid.Row="1"
+          x:Name="CustomerDataGrid"
+          AutoGenerateColumns="False"
+          IsReadOnly="True"
+          ItemsSource="{Binding Customers}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Kunde-ID" Binding="{Binding CustomerId}" Width="*"/>
+                                <DataGridTextColumn Header="Navn" Binding="{Binding Name}" Width="2*"/>
+                                <DataGridTextColumn Header="Adresse" Binding="{Binding CustomerAddress}" Width="2*"/>
+
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                    </Grid>
+                </TabItem>
+
+                <!-- AFREGNING & FAKTURA -->
+                <TabItem Header="Afregning &amp; faktura">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <!-- Overskrift -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- Trin 1 + 2 -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- Pris og beregning -->
+                            <RowDefinition Height="*"/>
+                            <!-- Faktura preview / ekstra plads -->
+                        </Grid.RowDefinitions>
+
+                        <!-- Overskrift -->
+                        <TextBlock Grid.Row="0"
+                                   Text="Afregning &amp; faktura"
+                                   FontSize="20" FontWeight="Bold"
+                                   Margin="0,0,0,10"/>
+
+                        <!-- TRIN 1 + 2: Kunde, udstyr, periode -->
+                        <GroupBox Grid.Row="1" Header="1. Vælg kunde, udstyr og periode" Margin="0,0,0,10">
+                            <StackPanel Margin="10">
+                                <!-- Kunde -->
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                    <TextBlock Text="Kunde:" VerticalAlignment="Center" Width="80"/>
+                                    <ComboBox x:Name="BillingCustomerComboBox" Width="250"/>
+                                </StackPanel>
+
+                                <!-- Udstyr -->
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                    <TextBlock Text="Udstyr:" VerticalAlignment="Center" Width="80"/>
+                                    <ListBox x:Name="BillingEquipmentListBox" 
+                                             Width="300" Height="80" 
+                                             SelectionMode="Extended">
+                                        <!-- Fx: items = udstyr knyttet til valgt kunde -->
+                                    </ListBox>
+                                </StackPanel>
+
+                                <!-- Periode -->
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                    <TextBlock Text="Fra dato:" VerticalAlignment="Center" Width="80"/>
+                                    <DatePicker x:Name="BillingFromDatePicker" Width="150" Margin="0,0,20,0"/>
+
+                                    <TextBlock Text="Til dato:" VerticalAlignment="Center" Width="80"/>
+                                    <DatePicker x:Name="BillingToDatePicker" Width="150"/>
+
+                                    <Button Content="Hent målinger" Margin="20,0,0,0" Padding="10,5"/>
+                                </StackPanel>
+
+                                <!-- Resultat af forbrug -->
+                                <TextBlock x:Name="BillingConsumptionSummaryTextBlock"
+                                           Text="Forbrug i perioden: (udregnes)"
+                                           FontStyle="Italic"/>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- PRIS OG BEREGNING -->
+                        <GroupBox Grid.Row="2" Header="2. Indtast elpris og beregn" Margin="0,0,0,10">
+                            <StackPanel Margin="10">
+
+                                <!-- Pris pr. kWh -->
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                    <TextBlock Text="Elpris pr. kWh:" Width="120" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="PricePerKwhTextBox" Width="100" Text="2,00"/>
+                                    <TextBlock Text="kr." VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                </StackPanel>
+
+                                <!-- Moms -->
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                    <TextBlock Text="Moms-sats:" Width="120" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="VatRateTextBox" Width="100" Text="25"/>
+                                    <TextBlock Text="%" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                </StackPanel>
+
+                                <!-- Beregningsknap -->
+                                <Button Content="Beregn faktura" Width="150" Padding="10,5" Margin="0,0,0,10"/>
+
+                                <!-- Resumé-tekst -->
+                                <StackPanel>
+                                    <TextBlock x:Name="BillingResultEnergyTextBlock"
+                                               Text="Energi-beløb ekskl. moms: -"
+                                               Margin="0,0,0,2"/>
+                                    <TextBlock x:Name="BillingResultSubtotalTextBlock"
+                                               Text="Subtotal ekskl. moms: -"
+                                               Margin="0,0,0,2"/>
+                                    <TextBlock x:Name="BillingResultVatTextBlock"
+                                               Text="Moms: -"
+                                               Margin="0,0,0,2"/>
+                                    <TextBlock x:Name="BillingResultTotalTextBlock"
+                                               Text="Total inkl. moms: -"
+                                               FontWeight="Bold"
+                                               Margin="0,5,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- FAKTURA-PREVIEW / HANDLING -->
+                        <Grid Grid.Row="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Knapper -->
+                            <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
+                                <Button Content="Generér faktura" Width="140" Margin="0,0,10,0" Padding="10,5"/>
+                                <Button Content="Udskriv" Width="100" Margin="0,0,10,0" Padding="10,5"/>
+                                <Button Content="Download som PDF" Width="150" Margin="0,0,10,0" Padding="10,5"/>
+                            </StackPanel>
+
+                            <!-- Simpelt faktura-preview (tekst) -->
+                            <Border Grid.Row="1" BorderBrush="#CCCCCC" BorderThickness="1" Padding="10">
+                                <ScrollViewer>
+                                    <StackPanel>
+                                        <TextBlock Text="Faktura – eksempel preview" 
+                                                   FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+                                        <TextBlock x:Name="InvoicePreviewTextBlock"
+                                                   Text="Her kan der vises en genereret faktura med alle linjer og totaler..."
+                                                   TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
     </Grid>
 </Window>
