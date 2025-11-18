@@ -1,63 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-namespace MetroTherm
+namespace MetroTherm.Models
 {
     public interface IDataHandler
     {
         void LoadData(bool IsCustomer);
         void SaveData(string OverViewDataFile);
-        List<DataHandler.Equipment> GetEquipmentOverview();
-        List<DataHandler.Customer> GetCustomerOverview();
+        ObservableCollection<Equipment> GetEquipmentOverview();
+        ObservableCollection<Customer> GetCustomerOverview();
     }
 
     public class DataHandler : IDataHandler
     {
         // Klasse til at repræsentere et stykke udstyr det blir nok equipmentRepository senere men var lidt nødt til at lave den for at få det til at virke 
-        public class Equipment
-        {
-            public string DeviceId { get; set; }
-            public string SerialNumber { get; set; }
-            public string ProductName { get; set; }
-            public string ConnectionState { get; set; }
-            public string CurrentFwVersion { get; set; }
-            public string DesiredFwVersion { get; set; }
-            public string ParameterId { get; set; }
-            public string ParameterName { get; set; }
-            public string Value { get; set; }
-            public string StrVal { get; set; }
-            public string ParameterUnit { get; set; }
-            public string Timestamp { get; set; }
-            public string Category { get; set; }
-            public string Writable { get; set; }
-            public string MinValue { get; set; }
-            public string MaxValue { get; set; }
-            public string StepValue { get; set; }
-            public string ScaleValue { get; set; }
-            public string ZoneId { get; set; }
-            public string SmartHomeCategories { get; set; }
-            public string EnumValues { get; set; }
-        }
 
 
-        public class Customer
-
-        {
-            public string ID { get; set; }
-            public string Name { get; set; }
-            public string Addresse { get; set; }
-
-        }
 
         public string DataFileName { get; set; }          // Navn på filen vi læser fra
-        private List<Equipment> EquipmentOverview = new List<Equipment>(); // Liste med alt udstyr
-        private List<Customer> CustomerOverview = new List<Customer>(); // Liste med alle kunder
+        private ObservableCollection<Equipment> EquipmentOverview = new ObservableCollection<Equipment>();  // Liste med alt udstyr
+        private ObservableCollection<Customer> CustomerOverview = new ObservableCollection<Customer>();     // Liste med alle kunder
 
-        public List<Equipment> GetEquipmentOverview() => EquipmentOverview;     // Hent listen med udstyr ingen ide om vi ville have det på den her møde
+        public ObservableCollection<Equipment> GetEquipmentOverview() => EquipmentOverview;     // Hent listen med udstyr ingen ide om vi ville have det på den her møde
 
-        public List<Customer> GetCustomerOverview() => CustomerOverview;        // Hent listen med kunder ingen ide om vi ville have det på den her møde        
+        public ObservableCollection<Customer> GetCustomerOverview() => CustomerOverview;        // Hent listen med kunder ingen ide om vi ville have det på den her møde        
 
         // Constructor her sætter vi filnavnet
         public DataHandler(string dataFileName) =>
@@ -76,45 +45,43 @@ namespace MetroTherm
                 for (int i = 1; i < lines.Length; i++)
                 {
                     c = lines[i].Split('\t');    // Split hver linje ved ta
-
                     if (IsCustomerData == true)
                     {
                         // Tilføj ny Customer til listen
-                        CustomerOverview.Add(new Customer
-                        {
-                            ID = c[0],
-                            Name = c[1],
-                            Addresse = c[2]
-                        });
+                        CustomerOverview.Add(new Customer(
+                                 c[0],  // customerID
+                                 c[1],  // name
+                                 c[2]   // address
+                                  ));   
 
                     }
                     else
                     {
                         // Tilføj ny Equipment til listen
-                        EquipmentOverview.Add(new Equipment
-                        {
-                            DeviceId = c[0],
-                            SerialNumber = c[1],
-                            ProductName = c[2],
-                            ConnectionState = c[3],
-                            CurrentFwVersion = c[4],
-                            DesiredFwVersion = c[5],
-                            ParameterId = c[6],
-                            ParameterName = c[7],
-                            Value = c[8],
-                            StrVal = c[9],
-                            ParameterUnit = c[10],
-                            Timestamp = c[11],
-                            Category = c[12],
-                            Writable = c[13],
-                            MinValue = c[14],
-                            MaxValue = c[15],
-                            StepValue = c[16],
-                            ScaleValue = c[17],
-                            ZoneId = c[18],
-                            SmartHomeCategories = c[19],
-                            EnumValues = c[20]
-                        });
+                        EquipmentOverview.Add(new Equipment(
+                                 c[0],  // deviceID
+                                 c[1],  // serialNumber
+                                 c[2],  // productName
+                                 c[3],  // connectionstate
+                                 c[4],  // currentFwVers
+                                 c[5],  // desiredFWVersion
+                                 c[6],  // paramID
+                                 c[7],  // paramName
+                                 c[8],  // value
+                                 c[9],  // strVal
+                                 c[10], // paramUnit
+                                 c[11], // timestamp
+                                 c[12], // catagory
+                                 c[13], // writeable
+                                 c[14], // minVal
+                                 c[15], // maxVal
+                                 c[16], // stopVal
+                                 c[17], // scaleVal
+                                 c[18], // zoneID
+                                 c[19], // smarthomeCatagories
+                                 c[20]  // enumValue
+                                  ));
+
                     }
                 }
             }
