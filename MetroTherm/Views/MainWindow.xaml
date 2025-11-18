@@ -144,9 +144,9 @@
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Udstyr-ID" Binding="{Binding DeviceId}" Width="*"/>
                                 <DataGridTextColumn Header="Navn/placering" Binding="{Binding ProductName}" Width="2*"/>
-                                <DataGridTextColumn Header="Model" Binding="{Binding Model}" Width="*"/>
+                                <DataGridTextColumn Header="Model" Binding="{Binding ParameterName}" Width="*"/>
                                 <DataGridTextColumn Header="Forbundet?" Binding="{Binding ConnectionState}" Width="*"/>
-                                <DataGridTextColumn Header="Forbrug" Binding="{Binding Consumption}" Width="*"/>
+                                <DataGridTextColumn Header="Forbrug" Binding="{Binding Value}" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
@@ -187,9 +187,9 @@
           IsReadOnly="True"
           ItemsSource="{Binding Customers}">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Kunde-ID" Binding="{Binding CustomerId}" Width="*"/>
+                                <DataGridTextColumn Header="Kunde-ID" Binding="{Binding ID}" Width="*"/>
                                 <DataGridTextColumn Header="Navn" Binding="{Binding Name}" Width="2*"/>
-                                <DataGridTextColumn Header="Adresse" Binding="{Binding CustomerAddress}" Width="2*"/>
+                                <DataGridTextColumn Header="Adresse" Binding="{Binding Address}" Width="2*"/>
 
 
                             </DataGrid.Columns>
