@@ -91,11 +91,8 @@ namespace MetroTherm.Models
         }
 
 
-       public event PropertyChangedEventHandler? PropertyChanged;
-       private void NotifyPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = "")
-       {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-       }
+        public event PropertyChangedEventHandler? PropertyChanged;
+        private void NotifyPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
     }
 }
