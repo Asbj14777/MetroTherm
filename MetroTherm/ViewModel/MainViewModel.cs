@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace MetroTherm.ViewModel 
 { 
@@ -32,9 +33,25 @@ public class MainViewModel : INotifyPropertyChanged
             set { _equipments = value; OnPropertyChanged(); }
         }
 
-        private Equipment SelectedEquipment; 
+        private Equipment selectedEquipment;
+        public Equipment SelectedEquipment
+        {             
+            get => selectedEquipment;
+            set { selectedEquipment = value; OnPropertyChanged(); }
+        }
+        public ICommand ShowMessageCommand { get; }
+
+        private void ShowMessage()
+        {
+            MessageBox.Show(SelectedEquipment.ParameterName);
+        }
+
         public MainViewModel()
         {
+            ShowMessageCommand = new RelayCommand(
+                execute: _ => ShowMessage(),
+                canExecute: _ => true
+            );
             IDataHandler dataHandler = new DataHandler("kundeliste.txt");
             Customers = new ObservableCollection<Customer>(dataHandler.LoadData<Customer>());
 
