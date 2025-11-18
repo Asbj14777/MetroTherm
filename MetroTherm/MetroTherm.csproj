@@ -8,4 +8,18 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="kundeliste.txt" />
+    <None Remove="myuplink_points_file1_LSC-HL000209-RXpO4.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="kundeliste.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="myuplink_points_file1_LSC-HL000209-RXpO4.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

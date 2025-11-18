@@ -123,7 +123,7 @@
 
                         <!-- TOPLINJE MED KNAP + FILTER -->
                         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
-                            <Button Content="vælg udstyr"
+                            <Button Content="Valgt udstyr"
                              Command="{Binding ShowMessageCommand}"
             Margin="0,0,10,0"
             Padding="10,5" ></Button>
@@ -137,11 +137,11 @@
 
                         <!-- UDSTYRS-TABEL -->
                         <DataGrid Grid.Row="1"
-                              x:Name="EquipmentDataGrid"
-                              AutoGenerateColumns="False"
-                              IsReadOnly="True"
-                              ItemsSource="{Binding Equipments}"
-                              SelectedItem="{Binding SelectedEquipment, Mode=TwoWay}">
+          x:Name="EquipmentDataGrid"
+          AutoGenerateColumns="False"
+          IsReadOnly="True"
+          ItemsSource="{Binding Equipments}"
+          SelectedItem="{Binding SelectedEquipment, Mode=TwoWay}">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Udstyr-ID" Binding="{Binding DeviceId}" Width="*"/>
                                 <DataGridTextColumn Header="Navn/placering" Binding="{Binding ProductName}" Width="2*"/>
@@ -150,6 +150,7 @@
                                 <DataGridTextColumn Header="Forbrug" Binding="{Binding Value}" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
+
                     </Grid>
                 </TabItem>
 
@@ -191,10 +192,9 @@
                                 <DataGridTextColumn Header="Kunde-ID" Binding="{Binding ID}" Width="*"/>
                                 <DataGridTextColumn Header="Navn" Binding="{Binding Name}" Width="2*"/>
                                 <DataGridTextColumn Header="Adresse" Binding="{Binding Address}" Width="2*"/>
-
-
                             </DataGrid.Columns>
                         </DataGrid>
+
 
                     </Grid>
                 </TabItem>
@@ -225,17 +225,21 @@
                                 <!-- Kunde -->
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                                     <TextBlock Text="Kunde:" VerticalAlignment="Center" Width="80"/>
-                                    <ComboBox x:Name="BillingCustomerComboBox" Width="250"/>
+                                    <ComboBox x:Name="BillingCustomerComboBox"
+              Width="250"
+              ItemsSource="{Binding Customers}"
+              DisplayMemberPath="Name"
+              SelectedItem="{Binding BillingCustomer, Mode=TwoWay}" />
                                 </StackPanel>
 
                                 <!-- Udstyr -->
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                                     <TextBlock Text="Udstyr:" VerticalAlignment="Center" Width="80"/>
                                     <ListBox x:Name="BillingEquipmentListBox" 
-                                             Width="300" Height="80" 
-                                             SelectionMode="Extended">
-                                        <!-- Fx: items = udstyr knyttet til valgt kunde -->
-                                    </ListBox>
+             Width="300" Height="80"
+             ItemsSource="{Binding Equipments}"
+             DisplayMemberPath="ParameterName"
+             SelectedItem="{Binding BillingEquipment, Mode=TwoWay}" />
                                 </StackPanel>
 
                                 <!-- Periode -->

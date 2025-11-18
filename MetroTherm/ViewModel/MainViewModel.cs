@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace MetroTherm.ViewModel 
-{ 
-public class MainViewModel : INotifyPropertyChanged
+namespace MetroTherm.ViewModel
 {
+    public class MainViewModel : INotifyPropertyChanged
+    {
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
@@ -35,7 +35,7 @@ public class MainViewModel : INotifyPropertyChanged
 
         private Equipment selectedEquipment;
         public Equipment SelectedEquipment
-        {             
+        {
             get => selectedEquipment;
             set { selectedEquipment = value; OnPropertyChanged(); }
         }
@@ -61,12 +61,27 @@ public class MainViewModel : INotifyPropertyChanged
 
         public void showEquipment(Equipment equipment)
         {
-            
+
         }
 
-        public Equipment chooseEquipment(Equipment equipment) 
-        { 
-                return equipment;
+        public Equipment chooseEquipment(Equipment equipment)
+        {
+            return equipment;
         }
-   }
+
+        private Customer _billingCustomer;
+        public Customer BillingCustomer
+        {
+            get => _billingCustomer;
+            set { _billingCustomer = value; OnPropertyChanged(); }
+        }
+
+        private Equipment _billingEquipment;
+        public Equipment BillingEquipment
+        {
+            get => _billingEquipment;
+            set { _billingEquipment = value; OnPropertyChanged(); }
+        }
+
+    }
 }
