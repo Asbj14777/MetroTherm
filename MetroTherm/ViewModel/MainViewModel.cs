@@ -18,9 +18,21 @@ public class MainViewModel : INotifyPropertyChanged
         protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-        ObservableCollection<Customer> Customers = new ObservableCollection<Customer>();
-        ObservableCollection<Equipment> Equipments = new ObservableCollection<Equipment>();
+        private ObservableCollection<Customer> _customers = new ObservableCollection<Customer>();
+        public ObservableCollection<Customer> Customers
+        {
+            get => _customers;
+            set { _customers = value; OnPropertyChanged(); }
+        }
 
+        private ObservableCollection<Equipment> _equipments = new ObservableCollection<Equipment>();
+        public ObservableCollection<Equipment> Equipments
+        {
+            get => _equipments;
+            set { _equipments = value; OnPropertyChanged(); }
+        }
+
+        private Equipment SelectedEquipment; 
         public MainViewModel()
         {
             IDataHandler dataHandler = new DataHandler("kundeliste.txt");
@@ -28,9 +40,6 @@ public class MainViewModel : INotifyPropertyChanged
 
             IDataHandler equipmentDataHandler = new DataHandler("myuplink_points_file1_LSC-HL000209-RXpO4.txt");
             Equipments = new ObservableCollection<Equipment>(equipmentDataHandler.LoadData<Equipment>());
-            
-            foreach (var item in Equipments) MessageBox.Show(item.ParameterName);
-            foreach (var item in Customers) MessageBox.Show(item.Name);
         }
 
         public void showEquipment(Equipment equipment)

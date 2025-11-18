@@ -12,7 +12,7 @@ namespace MetroTherm.Models
 
     public class DataHandler : IDataHandler
     {
-        public string DataFileName { get; private set; }
+        private string DataFileName;
         public DataHandler(string dataFileName) => DataFileName = dataFileName;      
         public IEnumerable<T> LoadData<T>() where T : class
         {
@@ -20,7 +20,7 @@ namespace MetroTherm.Models
                 throw new FileNotFoundException($"File not found: {DataFileName}");
 
             var lines = File.ReadAllLines(DataFileName);
-            if (lines.Length <= 1) return new List<T>(); // ingen data
+            if (lines.Length <= 1) return new List<T>();
 
             var header = lines[0].Split('\t');
             var list = new List<T>();
@@ -28,7 +28,7 @@ namespace MetroTherm.Models
             for (int i = 1; i < lines.Length; i++)
             {
                 var columns = lines[i].Split('\t');
-                string GetColumn(int index) => index < columns.Length ? columns[index] : string.Empty; // Håndterer manglende kolonner og returnere ingenting hvis der ikke er noget
+                string GetColumn(int index) => index < columns.Length ? columns[index] : string.Empty; 
 
                 if (typeof(T) == typeof(Customer))
                 {

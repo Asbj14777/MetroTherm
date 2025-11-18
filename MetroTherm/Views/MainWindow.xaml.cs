@@ -16,11 +16,16 @@ namespace MetroTherm
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        MetroTherm.ViewModel.MainViewModel viewModel = new MetroTherm.ViewModel.MainViewModel();    
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new MainViewModel();
+            this.DataContext = viewModel; 
+
+        }
+
+        private void EquipmentDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
         }
     }
