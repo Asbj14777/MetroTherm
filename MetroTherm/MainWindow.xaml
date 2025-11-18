@@ -136,15 +136,16 @@
           x:Name="EquipmentDataGrid"
           AutoGenerateColumns="False"
           IsReadOnly="True"
-          ItemsSource="{Binding EquipmentOverview}" AddingNewItem="EquipmentDataGrid_AddingNewItem">
+          ItemsSource="{Binding EquipmentOverview}">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Udstyr-ID" Binding="{Binding DeviceId}" Width="*"/>
                                 <DataGridTextColumn Header="Navn/placering" Binding="{Binding ProductName}" Width="2*"/>
                                 <DataGridTextColumn Header="Model" Binding="{Binding Model}" Width="*"/>
                                 <DataGridTextColumn Header="Forbundet?" Binding="{Binding ConnectionState}" Width="*"/>
                                 <DataGridTextColumn Header="Forbrug" Binding="{Binding Value}" Width="*"/>
+                                <DataGridTextColumn Header="Tidspunkt" Binding="{Binding Timestamp}" Width="*"/>
                             </DataGrid.Columns>
-                        </DataGrid>
+                        </DataGrid> 
 
                     </Grid>
                 </TabItem>
