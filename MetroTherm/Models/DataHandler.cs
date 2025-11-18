@@ -13,7 +13,9 @@ namespace MetroTherm.Models
     public class DataHandler : IDataHandler
     {
         private string DataFileName;
-        public DataHandler(string dataFileName) => DataFileName = dataFileName;      
+        
+        public DataHandler(string dataFileName) => DataFileName = dataFileName; 
+        
         public IEnumerable<T> LoadData<T>() where T : class
         {
             if (!File.Exists(DataFileName))
