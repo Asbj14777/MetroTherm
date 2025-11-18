@@ -8,7 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using MetroTherm.ViewModel;
 namespace MetroTherm
 {
     /// <summary>
@@ -18,6 +18,7 @@ namespace MetroTherm
 
 
     {
+
         public MainWindow()
         {
             InitializeComponent();
