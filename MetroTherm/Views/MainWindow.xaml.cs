@@ -18,6 +18,7 @@ namespace MetroTherm
 
 
     {
+
         public MainWindow()
         {
             InitializeComponent();
