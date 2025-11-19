@@ -82,7 +82,27 @@ namespace MetroTherm.ViewModel
             get => _billingEquipment;
             set { _billingEquipment = value; OnPropertyChanged(); }
         }
-        
+        private double _pricePerKwh1;
+        public double PricePerKwh1
+        {
+            get => _pricePerKwh1;
+            set { _pricePerKwh1 = value; OnPropertyChanged(); }
+        }
+
+        private double _pricePerKwh2;
+        public double PricePerKwh2
+        {
+            get => _pricePerKwh2;
+            set { _pricePerKwh2 = value; OnPropertyChanged(); }
+        }
+
+        private double _pricePerKwh3;
+        public double PricePerKwh3
+        {
+            get => _pricePerKwh3;
+            set { _pricePerKwh3 = value; OnPropertyChanged(); }
+        }
+
 
     }
 }
