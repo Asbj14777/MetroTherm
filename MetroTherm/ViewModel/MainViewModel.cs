@@ -70,5 +70,14 @@ public class MainViewModel : INotifyPropertyChanged
             }    
             return totalValue;
         }
+
+
+
+
+
+        public void showEquipment()
+        {
+            var EQ = selectedEquipment; 
+        }
    }
 }

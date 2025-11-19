@@ -231,11 +231,7 @@
                                 <!-- Kunde -->
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                                     <TextBlock Text="Kunde:" VerticalAlignment="Center" Width="80"/>
-                                    <ComboBox x:Name="BillingCustomerComboBox" Width="250" ItemsSource="{Binding Customers}"
-        
-                                              
-                                              
-                                              />
+                                    <ComboBox x:Name="BillingCustomerComboBox" Width="250" ItemsSource="{Binding Customers}"/>
                                     
                                     
                                     
@@ -246,7 +242,10 @@
                                     <TextBlock Text="Udstyr:" VerticalAlignment="Center" Width="80"/>
                                     <ListBox x:Name="BillingEquipmentListBox" 
                                              Width="300" Height="80" 
-                                             SelectionMode="Extended">
+                                             SelectionMode="Extended"
+                                             ItemsSource="{Binding Equipments}"
+                                             >
+                                        
                                         <!-- Fx: items = udstyr knyttet til valgt kunde -->
                                     </ListBox>
                                 </StackPanel>

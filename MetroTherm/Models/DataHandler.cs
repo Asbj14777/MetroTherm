@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
+using System.Windows;
 
 namespace MetroTherm.Models
 {
     public interface IDataHandler
     {
         IEnumerable<T> LoadData<T>() where T : class;
+        void SaveData(string path, string content); 
     }
 
     public class DataHandler : IDataHandler
@@ -60,6 +63,20 @@ namespace MetroTherm.Models
                 }
             }
             return list;
+        }
+        public void SaveData(string fileName, string content)
+        {
+            try
+            {
+                if (File.Exists(fileName))
+                    File.Delete(fileName);
+               
+                File.WriteAllText(fileName, content);
+            }
+            catch (Exception a)
+            {
+                MessageBox.Show($"{a.Message}");
+            }
         }
     }
 }

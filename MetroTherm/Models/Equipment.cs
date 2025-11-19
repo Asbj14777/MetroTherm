@@ -57,11 +57,11 @@ namespace MetroTherm.Models
         }
 
         public override string ToString() =>
-    $"DeviceId: {DeviceId}, " +
-    $"SerialNumber: {SerialNumber}, " +
-    $"ProductName: {ProductName}, " +
-    $"ConnectionState: {ConnectionState}, " +
-    $"CurrentFwVersion: {CurrentFwVersion}, " +
+             $"DeviceId: {DeviceId}, " +
+             $"SerialNumber: {SerialNumber}, " +
+             $"ProductName: {ProductName}, " +
+            $"ConnectionState: {ConnectionState}, " +
+            $"CurrentFwVersion: {CurrentFwVersion}, " +
     $"DesiredFwVersion: {DesiredFwVersion}, " +
     $"ParameterId: {ParameterId}, " +
     $"ParameterName: {ParameterName}, " +

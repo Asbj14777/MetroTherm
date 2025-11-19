@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MetroTherm.Models;
 using MetroTherm.ViewModel;
 namespace MetroTherm
 {
@@ -32,7 +33,11 @@ namespace MetroTherm
         private void Button_Click(object sender, RoutedEventArgs e)
         {
              double value = viewModel.chooseEquipment();       
-            MessageBox.Show(value.ToString());  
+            MessageBox.Show(value.ToString());
+
+           IDataHandler handler = new DataHandler("");
+            handler.SaveData("output.txt", "hellp world"); 
+
         }
     }
 }
