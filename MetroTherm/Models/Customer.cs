@@ -14,5 +14,7 @@ namespace MetroTherm.Models
             Name = name;
             Address = address;
         }
+
+        public override string ToString() => $"ID : {ID}, Name: {Name}, Address: {Address}"; 
     }
 }

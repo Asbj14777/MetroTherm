@@ -55,5 +55,29 @@ namespace MetroTherm.Models
             SmartHomeCategories = smarthomeCatagories;
             EnumValues = enumValue;
         }
+
+        public override string ToString() =>
+    $"DeviceId: {DeviceId}, " +
+    $"SerialNumber: {SerialNumber}, " +
+    $"ProductName: {ProductName}, " +
+    $"ConnectionState: {ConnectionState}, " +
+    $"CurrentFwVersion: {CurrentFwVersion}, " +
+    $"DesiredFwVersion: {DesiredFwVersion}, " +
+    $"ParameterId: {ParameterId}, " +
+    $"ParameterName: {ParameterName}, " +
+    $"Value: {Value}, " +
+    $"StrVal: {StrVal}, " +
+    $"ParameterUnit: {ParameterUnit}, " +
+    $"Timestamp: {Timestamp}, " +
+    $"Category: {Category}, " +
+    $"Writable: {Writable}, " +
+    $"MinValue: {MinValue}, " +
+    $"MaxValue: {MaxValue}, " +
+    $"StepValue: {StepValue}, " +
+    $"ScaleValue: {ScaleValue}, " +
+    $"ZoneId: {ZoneId}, " +
+    $"SmartHomeCategories: {SmartHomeCategories}, " +
+    $"EnumValues: {EnumValues}";
+
     }
 }
