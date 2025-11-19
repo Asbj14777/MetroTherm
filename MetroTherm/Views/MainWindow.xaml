@@ -114,6 +114,12 @@
                 <!-- UDSTYR & MÅLINGER -->
                 <TabItem Header="Energiforbug">
                     <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="159*"/>
+                            <ColumnDefinition Width="13*"/>
+                            <ColumnDefinition Width="56*"/>
+                            <ColumnDefinition Width="466*"/>
+                        </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <!-- Topkontroller -->
@@ -122,7 +128,7 @@
                         </Grid.RowDefinitions>
 
                         <!-- TOPLINJE MED KNAP + FILTER -->
-                        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10" Grid.ColumnSpan="4">
                             <Button Content="vælg udstyr"
                              Command="{Binding ShowMessageCommand}"
             Margin="0,0,10,0"
@@ -141,7 +147,7 @@
                               AutoGenerateColumns="False"
                               IsReadOnly="True"
                               ItemsSource="{Binding Equipments}"
-                              SelectedItem="{Binding SelectedEquipment, Mode=TwoWay}">
+                              SelectedItem="{Binding SelectedEquipment, Mode=TwoWay}" Grid.ColumnSpan="4">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Udstyr-ID" Binding="{Binding DeviceId}" Width="*"/>
                                 <DataGridTextColumn Header="Navn/placering" Binding="{Binding ProductName}" Width="2*"/>
@@ -225,7 +231,14 @@
                                 <!-- Kunde -->
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                                     <TextBlock Text="Kunde:" VerticalAlignment="Center" Width="80"/>
-                                    <ComboBox x:Name="BillingCustomerComboBox" Width="250"/>
+                                    <ComboBox x:Name="BillingCustomerComboBox" Width="250" ItemsSource="{Binding Customers}"
+        
+                                              
+                                              
+                                              />
+                                    
+                                    
+                                    
                                 </StackPanel>
 
                                 <!-- Udstyr -->
@@ -246,7 +259,7 @@
                                     <TextBlock Text="Til dato:" VerticalAlignment="Center" Width="80"/>
                                     <DatePicker x:Name="BillingToDatePicker" Width="150"/>
 
-                                    <Button Content="Hent målinger" Margin="20,0,0,0" Padding="10,5"/>
+                                    <Button Content="Hent målinger" Margin="20,0,0,0" Padding="10,5" Click="Button_Click"/>
                                 </StackPanel>
 
                                 <!-- Resultat af forbrug -->

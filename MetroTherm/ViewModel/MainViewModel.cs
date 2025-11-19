@@ -43,30 +43,32 @@ public class MainViewModel : INotifyPropertyChanged
 
         private void ShowMessage()
         {
-            MessageBox.Show(SelectedEquipment.ParameterName);
+            MessageBox.Show($"{selectedEquipment.ParameterId} {selectedEquipment.ParameterName} {selectedEquipment.ProductName}");
         }
 
         public MainViewModel()
         {
-            ShowMessageCommand = new RelayCommand(
+            ShowMessageCommand = new RelayCommand
+            (
                 execute: _ => ShowMessage(),
                 canExecute: _ => true
             );
+
             IDataHandler dataHandler = new DataHandler("kundeliste.txt");
             Customers = new ObservableCollection<Customer>(dataHandler.LoadData<Customer>());
 
             IDataHandler equipmentDataHandler = new DataHandler("myuplink_points_file1_LSC-HL000209-RXpO4.txt");
             Equipments = new ObservableCollection<Equipment>(equipmentDataHandler.LoadData<Equipment>());
         }
-
-        public void showEquipment(Equipment equipment)
+        public double chooseEquipment() 
         {
-            
-        }
-
-        public Equipment chooseEquipment(Equipment equipment) 
-        { 
-                return equipment;
+            double totalValue = 0.0; 
+            foreach(var item in Equipments)
+            {
+                double.TryParse(item.Value, out double consumption);
+                totalValue += (consumption * 277.7777777778);
+            }    
+            return totalValue;
         }
    }
 }

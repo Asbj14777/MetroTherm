@@ -28,5 +28,11 @@ namespace MetroTherm
         {
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+             double value = viewModel.chooseEquipment();       
+            MessageBox.Show(value.ToString());  
+        }
     }
 }
