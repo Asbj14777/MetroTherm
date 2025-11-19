@@ -22,6 +22,9 @@
         <DockPanel Grid.Row="0" Background="#2D3E50" LastChildFill="True">
             <!-- Logo / tekst til venstre -->
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Margin="10,0">
+                <Image Source="/Metrotherm Logoos.png"
+       Height="40"
+       Margin="0,0,10,0" />
                 <TextBlock Text="EnergiKonvertering"
                            VerticalAlignment="Center"
                            FontSize="20"
@@ -169,16 +172,7 @@
 
 
 
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Id:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                                <TextBox x:Name="TxtCustomerId" Width="80" Margin="0,0,10,0"/>
-
-                                <TextBlock Text="Navn:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                                <TextBox x:Name="TxtCustomerName" Width="150" Margin="0,0,10,0"/>
-
-                                <TextBlock Text="Adresse:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                                <TextBox x:Name="TxtCustomerAddress" Width="200" Margin="0,0,10,0"/>
-                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"/>
                         </StackPanel>
 
 

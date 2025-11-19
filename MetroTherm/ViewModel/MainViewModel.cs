@@ -82,6 +82,7 @@ namespace MetroTherm.ViewModel
             get => _billingEquipment;
             set { _billingEquipment = value; OnPropertyChanged(); }
         }
+        
 
     }
 }

@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="kundeliste.txt" />
+    <None Remove="Metrotherm Logoos.png" />
     <None Remove="myuplink_points_file1_LSC-HL000209-RXpO4.txt" />
   </ItemGroup>
 
@@ -20,6 +21,12 @@
     <Content Include="myuplink_points_file1_LSC-HL000209-RXpO4.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Metrotherm Logoos.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
