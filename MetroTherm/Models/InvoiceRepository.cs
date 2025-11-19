@@ -33,6 +33,13 @@ namespace MetroTherm.Models
 
         }
 
+        // Vælg en faktura
+        public Invoice? SelectInvoice(int invoiceNumber)
+        {
+            if (invoiceNumber <= 0) return null;
+            return _invoices.FirstOrDefault(i => i.InvoiceNumber == invoiceNumber);
+        }
+
         // Opdater en faktura
         public void UpdateInvoice(Invoice invoice)
         {
