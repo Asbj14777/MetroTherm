@@ -2,3 +2,24 @@ deviceId	serialNumber	productName	connectionState	currentFwVersion	desiredFwVers
 LSC-HL000209-RXpO4	000000-222222-444444	Metro Superb S	Connected	27.1.5	1.4	1010	Heat energy E1	303	303		2025-10-18T11:03:44+00:00	Vision Duo	False			1	1			
 LSC-HL000209-RXpO4	000000-222222-444444	Metro Superb S	Connected	27.1.5	1.4	1012	Cooling energy E3	99	99		2025-10-18T11:03:44+00:00	Vision Duo	False			1	1			
 LSC-HL000209-RXpO4	000000-222222-444444	Metro Superb S	Connected	27.1.5	1.4	1051	MC2 Heat energy E1	804	804		2025-10-18T11:03:44+00:00	Vision Duo	False			1	1			
+LSC-HL000209-RXpO4	000000-222222-444444	Metro Superb S	Connected				Heat energy E1	310	310		2025-02-18T11:03:44+00:00									
+LSC-HL000209-RXpO4	000000-222222-444444	Metro Superb S	Connected				Cooling energy E3	120	120		2025-02-18T11:03:44+00:00									
+LSC-HL000209-RXpO4	000000-222222-444444	Metro Superb S	Connected				MC2 Heat energy E1	814	814		2025-02-18T11:03:44+00:00									
+LSC-HL000209-RXpO4	000000-222222-444444	Metro Superb S	Connected				Heat energy E1	345	345		2025-03-18T11:03:44+00:00									
+LSC-HL000209-RXpO4	000000-222222-444444	Metro Superb S	Connected				Cooling energy E3	135	135		2025-03-18T11:03:44+00:00									
+LSC-HL000209-RXpO4	000000-222222-444444	Metro Superb S	Connected				MC2 Heat energy E1	842	842		2025-03-18T11:03:44+00:00									
+LSC-HL000209-RXpO4	000000-222222-444444	Metro Superb S	Connected				Heat energy E1	350	350		2025-04-18T11:03:44+00:00									
+LSC-HL000209-RXpO4	000000-222222-444444	Metro Superb S	Connected				Cooling energy E3	166	166		2025-04-18T11:03:44+00:00									
+LSC-HL000209-RXpO4	000000-222222-444444	Metro Superb S	Connected				MC2 Heat energy E1	850	850		2025-04-18T11:03:44+00:00									
+LSC-HL000424-gK6s8	111111-222222-444444	Metro Superb M	Connected				Heat energy E1	218	218		2025-01-18T11:03:44+00:00									
+LSC-HL000424-gK6s8	111111-222222-444444	Metro Superb M	Connected				Cooling energy E3	10	10		2025-01-18T11:03:44+00:00									
+LSC-HL000424-gK6s8	111111-222222-444444	Metro Superb M	Connected				MC2 Heat energy E1	47	47		2025-01-18T11:03:44+00:00									
+LSC-HL000424-gK6s8	111111-222222-444444	Metro Superb M	Connected				Heat energy E1	230	230		2025-02-18T11:03:44+00:00									
+LSC-HL000424-gK6s8	111111-222222-444444	Metro Superb M	Connected				Cooling energy E3	21	21		2025-02-18T11:03:44+00:00									
+LSC-HL000424-gK6s8	111111-222222-444444	Metro Superb M	Connected				MC2 Heat energy E1	88	88		2025-02-18T11:03:44+00:00									
+LSC-HL000424-gK6s8	111111-222222-444444	Metro Superb M	Connected				Heat energy E1	243	243		2025-03-18T11:03:44+00:00									
+LSC-HL000424-gK6s8	111111-222222-444444	Metro Superb M	Connected				Cooling energy E3	37	37		2025-03-18T11:03:44+00:00									
+LSC-HL000424-gK6s8	111111-222222-444444	Metro Superb M	Connected				MC2 Heat energy E1	101	101		2025-03-18T11:03:44+00:00									
+LSC-HL000424-gK6s8	111111-222222-444444	Metro Superb M	Connected				Heat energy E1	255	255		2025-04-18T11:03:44+00:00									
+LSC-HL000424-gK6s8	111111-222222-444444	Metro Superb M	Connected				Cooling energy E3	54	54		2025-04-18T11:03:44+00:00									
+LSC-HL000424-gK6s8	111111-222222-444444	Metro Superb M	Connected				MC2 Heat energy E1	123	123		2025-04-18T11:03:44+00:00									
