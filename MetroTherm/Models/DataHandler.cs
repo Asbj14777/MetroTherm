@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows.Data;
 
 namespace MetroTherm.Models
 {
     public interface IDataHandler
     {
         IEnumerable<T> LoadData<T>() where T : class;
+        void SaveData(string path, string content); 
     }
 
     public class DataHandler : IDataHandler
@@ -61,5 +63,19 @@ namespace MetroTherm.Models
             }
             return list;
         }
+        public void SaveData(string path, string content)
+        {
+            if(File.Exists(path))
+                File.Delete(path);  
+            try
+            { 
+                File.WriteAllText(path, content );
+            }
+            catch (Exception ex) 
+            { 
+                throw new Exception(ex.Message);
+            }        
+        }
     }
+   
 }

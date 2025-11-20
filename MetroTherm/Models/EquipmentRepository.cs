@@ -42,13 +42,10 @@ namespace MetroTherm.Models
                 _equipment[index] = equipment;
             }
         }
-
         // Hent alt udstyr
         public List<Equipment> GetAll()
         {
             return new List<Equipment>(_equipment);
         }
-
-
     }
 }

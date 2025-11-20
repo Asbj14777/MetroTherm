@@ -51,7 +51,8 @@ namespace MetroTherm.ViewModel
             ShowMessageCommand = new RelayCommand(
                 execute: _ => ShowMessage(),
                 canExecute: _ => true
-            );
+        );
+
             IDataHandler dataHandler = new DataHandler("kundeliste.txt");
             Customers = new ObservableCollection<Customer>(dataHandler.LoadData<Customer>());
 
