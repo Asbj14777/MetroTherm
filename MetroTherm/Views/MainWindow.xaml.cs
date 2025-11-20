@@ -24,9 +24,6 @@ namespace MetroTherm
 
         }
 
-        private void EquipmentDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
-}
+

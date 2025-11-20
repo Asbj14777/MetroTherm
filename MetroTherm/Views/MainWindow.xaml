@@ -22,6 +22,9 @@
         <DockPanel Grid.Row="0" Background="#2D3E50" LastChildFill="True">
             <!-- Logo / tekst til venstre -->
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Margin="10,0">
+                <Image Source="/Metrotherm Logoos.png"
+       Height="40"
+       Margin="0,0,10,0" />
                 <TextBlock Text="EnergiKonvertering"
                            VerticalAlignment="Center"
                            FontSize="20"
@@ -123,7 +126,7 @@
 
                         <!-- TOPLINJE MED KNAP + FILTER -->
                         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
-                            <Button Content="vælg udstyr"
+                            <Button Content="Valgt udstyr"
                              Command="{Binding ShowMessageCommand}"
             Margin="0,0,10,0"
             Padding="10,5" ></Button>
@@ -137,11 +140,11 @@
 
                         <!-- UDSTYRS-TABEL -->
                         <DataGrid Grid.Row="1"
-                              x:Name="EquipmentDataGrid"
-                              AutoGenerateColumns="False"
-                              IsReadOnly="True"
-                              ItemsSource="{Binding Equipments}"
-                              SelectedItem="{Binding SelectedEquipment, Mode=TwoWay}">
+          x:Name="EquipmentDataGrid"
+          AutoGenerateColumns="False"
+          IsReadOnly="True"
+          ItemsSource="{Binding Equipments}"
+          SelectedItem="{Binding SelectedEquipment, Mode=TwoWay}">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Udstyr-ID" Binding="{Binding DeviceId}" Width="*"/>
                                 <DataGridTextColumn Header="Navn/placering" Binding="{Binding ProductName}" Width="2*"/>
@@ -150,6 +153,7 @@
                                 <DataGridTextColumn Header="Forbrug" Binding="{Binding Value}" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
+
                     </Grid>
                 </TabItem>
 
@@ -168,16 +172,7 @@
 
 
 
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Id:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                                <TextBox x:Name="TxtCustomerId" Width="80" Margin="0,0,10,0"/>
-
-                                <TextBlock Text="Navn:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                                <TextBox x:Name="TxtCustomerName" Width="150" Margin="0,0,10,0"/>
-
-                                <TextBlock Text="Adresse:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                                <TextBox x:Name="TxtCustomerAddress" Width="200" Margin="0,0,10,0"/>
-                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"/>
                         </StackPanel>
 
 
@@ -191,10 +186,9 @@
                                 <DataGridTextColumn Header="Kunde-ID" Binding="{Binding ID}" Width="*"/>
                                 <DataGridTextColumn Header="Navn" Binding="{Binding Name}" Width="2*"/>
                                 <DataGridTextColumn Header="Adresse" Binding="{Binding Address}" Width="2*"/>
-
-
                             </DataGrid.Columns>
                         </DataGrid>
+
 
                     </Grid>
                 </TabItem>
@@ -225,17 +219,21 @@
                                 <!-- Kunde -->
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                                     <TextBlock Text="Kunde:" VerticalAlignment="Center" Width="80"/>
-                                    <ComboBox x:Name="BillingCustomerComboBox" Width="250"/>
+                                    <ComboBox x:Name="BillingCustomerComboBox"
+              Width="250"
+              ItemsSource="{Binding Customers}"
+              DisplayMemberPath="Name"
+              SelectedItem="{Binding BillingCustomer, Mode=TwoWay}" />
                                 </StackPanel>
 
                                 <!-- Udstyr -->
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                                     <TextBlock Text="Udstyr:" VerticalAlignment="Center" Width="80"/>
                                     <ListBox x:Name="BillingEquipmentListBox" 
-                                             Width="300" Height="80" 
-                                             SelectionMode="Extended">
-                                        <!-- Fx: items = udstyr knyttet til valgt kunde -->
-                                    </ListBox>
+             Width="300" Height="80"
+             ItemsSource="{Binding Equipments}"
+             DisplayMemberPath="ParameterName"
+             SelectedItem="{Binding BillingEquipment, Mode=TwoWay}" />
                                 </StackPanel>
 
                                 <!-- Periode -->
@@ -260,41 +258,69 @@
                         <GroupBox Grid.Row="2" Header="2. Indtast elpris og beregn" Margin="0,0,0,10">
                             <StackPanel Margin="10">
 
-                                <!-- Pris pr. kWh -->
+                                <!-- Elpris 1 -->
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                    <TextBlock Text="Elpris pr. kWh:" Width="120" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="PricePerKwhTextBox" Width="100" Text="2,00"/>
+                                    <TextBlock Text="Heat Energy E1 pris pr. kWh:" 
+                       Width="220" VerticalAlignment="Center"/>
+                                    <TextBox Width="80"
+                     Text="{Binding PricePerKwh1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBlock Text="kr." VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                </StackPanel>
+
+                                <!-- Elpris 2 -->
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                    <TextBlock Text="Cooling Energy E3 pris pr. kWh:" 
+                       Width="220" VerticalAlignment="Center"/>
+                                    <TextBox Width="80"
+                     Text="{Binding PricePerKwh2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBlock Text="kr." VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                </StackPanel>
+
+                                <!-- Elpris 3 -->
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                    <TextBlock Text="MC2 Heat energy E1 pris pr. kWh:" 
+                       Width="220" VerticalAlignment="Center"/>
+                                    <TextBox Width="80"
+                     Text="{Binding PricePerKwh3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     <TextBlock Text="kr." VerticalAlignment="Center" Margin="5,0,0,0"/>
                                 </StackPanel>
 
                                 <!-- Moms -->
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                    <TextBlock Text="Moms-sats:" Width="120" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="VatRateTextBox" Width="100" Text="25"/>
-                                    <TextBlock Text="%" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                <!-- Moms -->
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
+                                    <TextBlock Text="Moms-sats:" 
+               Width="220"
+               VerticalAlignment="Center"/>
+                                    <TextBox x:Name="VatRateTextBox"
+             Width="80"
+             Text="25"/>
+                                    <TextBlock Text="%" 
+               VerticalAlignment="Center"
+               Margin="5,0,0,0"/>
                                 </StackPanel>
 
-                                <!-- Beregningsknap -->
-                                <Button Content="Beregn faktura" Width="150" Padding="10,5" Margin="0,0,0,10"/>
 
-                                <!-- Resumé-tekst -->
+                                <!-- Resumé -->
                                 <StackPanel>
                                     <TextBlock x:Name="BillingResultEnergyTextBlock"
-                                               Text="Energi-beløb ekskl. moms: -"
-                                               Margin="0,0,0,2"/>
+                       Text="Energi-beløb ekskl. moms: -"
+                       Margin="0,0,0,2"/>
                                     <TextBlock x:Name="BillingResultSubtotalTextBlock"
-                                               Text="Subtotal ekskl. moms: -"
-                                               Margin="0,0,0,2"/>
+                       Text="Subtotal ekskl. moms: -"
+                       Margin="0,0,0,2"/>
                                     <TextBlock x:Name="BillingResultVatTextBlock"
-                                               Text="Moms: -"
-                                               Margin="0,0,0,2"/>
+                       Text="Moms: -"
+                       Margin="0,0,0,2"/>
                                     <TextBlock x:Name="BillingResultTotalTextBlock"
-                                               Text="Total inkl. moms: -"
-                                               FontWeight="Bold"
-                                               Margin="0,5,0,0"/>
+                       Text="Total inkl. moms: -"
+                       FontWeight="Bold"
+                       Margin="0,5,0,0"/>
                                 </StackPanel>
+
                             </StackPanel>
                         </GroupBox>
+
+
 
                         <!-- FAKTURA-PREVIEW / HANDLING -->
                         <Grid Grid.Row="3">
@@ -311,17 +337,6 @@
                             </StackPanel>
 
                             <!-- Simpelt faktura-preview (tekst) -->
-                            <Border Grid.Row="1" BorderBrush="#CCCCCC" BorderThickness="1" Padding="10">
-                                <ScrollViewer>
-                                    <StackPanel>
-                                        <TextBlock Text="Faktura – eksempel preview" 
-                                                   FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
-                                        <TextBlock x:Name="InvoicePreviewTextBlock"
-                                                   Text="Her kan der vises en genereret faktura med alle linjer og totaler..."
-                                                   TextWrapping="Wrap"/>
-                                    </StackPanel>
-                                </ScrollViewer>
-                            </Border>
                         </Grid>
                     </Grid>
                 </TabItem>
