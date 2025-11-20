@@ -19,7 +19,5 @@ namespace MetroTherm.Models
             InvoiceNumber = invoicenumber;
         }
         public override string ToString() => $"Price: {Price}, Period: {Period}, Usage: {Usage}, ProductName: {ProductName}, InvoiceNumber: {InvoiceNumber}"; 
-        
-        
     }
 }

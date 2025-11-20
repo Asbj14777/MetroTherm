@@ -12,7 +12,8 @@ namespace MetroTherm.Models
         private readonly List<Customer> _customers = new(); // gemmer kunder i hukommelsen
 
         public CustomerRepository()     
-        {          
+        {
+            
         }
 
         // Tilføj en kunde

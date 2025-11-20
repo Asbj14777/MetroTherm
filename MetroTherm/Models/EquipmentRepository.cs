@@ -12,6 +12,7 @@ namespace MetroTherm.Models
 
         public EquipmentRepository()     
         {
+           
         }
 
         // Tilføj udstyr
