@@ -126,10 +126,6 @@
 
                         <!-- TOPLINJE MED KNAP + FILTER -->
                         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
-                            <Button Content="Valgt udstyr"
-                             Command="{Binding ShowMessageCommand}"
-            Margin="0,0,10,0"
-            Padding="10,5" ></Button>
 
 
                             <!-- 🚀 Her er de TextBoxes du mangler -->
@@ -183,7 +179,7 @@
           IsReadOnly="True"
           ItemsSource="{Binding Customers}">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Kunde-ID" Binding="{Binding ID}" Width="*"/>
+                                <DataGridTextColumn Header="Udstyr-ID" Binding="{Binding ID}" Width="*"/>
                                 <DataGridTextColumn Header="Navn" Binding="{Binding Name}" Width="2*"/>
                                 <DataGridTextColumn Header="Adresse" Binding="{Binding Address}" Width="2*"/>
                             </DataGrid.Columns>
@@ -332,8 +328,8 @@
                             <!-- Knapper -->
                             <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
                                 <Button Content="Generér faktura" Width="140" Margin="0,0,10,0" Padding="10,5"/>
-                                <Button Content="Udskriv" Width="100" Margin="0,0,10,0" Padding="10,5"/>
-                                <Button Content="Download som PDF" Width="150" Margin="0,0,10,0" Padding="10,5"/>
+                                <Button Content="Udskriv" Width="100" Margin="0,0,10,0" Padding="10,5" IsEnabled="False"/>
+                                <Button Content="Download som PDF" Width="150" Margin="0,0,10,0" Padding="10,5" IsEnabled="False"/>
                             </StackPanel>
 
                             <!-- Simpelt faktura-preview (tekst) -->
