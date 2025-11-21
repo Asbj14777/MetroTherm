@@ -1,0 +1,1 @@
+deviceId	serialNumber	productName	connectionState	currentFwVersion	desiredFwVersion	parameterId	parameterName	value	strVal	parameterUnit	timestamp	category	writable	minValue	maxValue	stepValue	scaleValue	zoneId	smartHomeCategories	enumValues
