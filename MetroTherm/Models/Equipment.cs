@@ -4,27 +4,30 @@ namespace MetroTherm.Models
 {
     public class Equipment
     {
+        // in viewmodel
         public string DeviceId { get; set; }
-        public string SerialNumber { get; set; }
         public string ProductName { get; set; }
         public string ConnectionState { get; set; }
-        public string CurrentFwVersion { get; set; }
-        public string DesiredFwVersion { get; set; }
-        public string ParameterId { get; set; }
         public string ParameterName { get; set; }
         public string Value { get; set; }
-        public string StrVal { get; set; }
-        public string ParameterUnit { get; set; }
-        public string Timestamp { get; set; }
-        public string Category { get; set; }
-        public string Writable { get; set; }
-        public string MinValue { get; set; }
-        public string MaxValue { get; set; }
-        public string StepValue { get; set; }
-        public string ScaleValue { get; set; }
-        public string ZoneId { get; set; }
-        public string SmartHomeCategories { get; set; }
-        public string EnumValues { get; set; }
+
+        // not in viewmodel read only
+        public string SerialNumber { get; }
+        public string CurrentFwVersion { get; }
+        public string DesiredFwVersion { get; }
+        public string ParameterId { get; }
+        public string StrVal { get; }
+        public string ParameterUnit { get; }
+        public string Timestamp { get; }
+        public string Category { get; }
+        public string Writable { get; }
+        public string MinValue { get; }
+        public string MaxValue { get; }
+        public string StepValue { get; }
+        public string ScaleValue { get; }
+        public string ZoneId { get; }
+        public string SmartHomeCategories { get; }
+        public string EnumValues { get; }
 
         public Equipment
         (

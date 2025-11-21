@@ -16,7 +16,7 @@ namespace MetroTherm
     /// </summary>
     public partial class MainWindow : Window
     {
-        MetroTherm.ViewModel.MainViewModel viewModel = new MetroTherm.ViewModel.MainViewModel();    
+        MainViewModel viewModel = new MainViewModel();    
         public MainWindow()
         {
             InitializeComponent();
@@ -24,6 +24,6 @@ namespace MetroTherm
 
         }
 
-        }
-    }
+     }
+ }
 

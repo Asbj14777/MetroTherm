@@ -4,6 +4,7 @@ namespace MetroTherm.Models
 {
     public class Customer
     {
+        // in viewmodel
         public string ID { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }

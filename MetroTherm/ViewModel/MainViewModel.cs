@@ -12,29 +12,27 @@ using System.Windows.Input;
 
 namespace MetroTherm.ViewModel
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : BaseViewModel
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
+        private readonly CustomerRepository customerRepo;
+        private readonly EquipmentRepository equipmentRepo;
 
-        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-        private ObservableCollection<Customer> _customers = new ObservableCollection<Customer>();
-        public ObservableCollection<Customer> Customers
-        {
-            get => _customers;
-            set { _customers = value; OnPropertyChanged(); }
-        }
-
-        private ObservableCollection<Equipment> _equipments = new ObservableCollection<Equipment>();
-        public ObservableCollection<Equipment> Equipments
-        {
-            get => _equipments;
+        private ObservableCollection<EquipmentViewModel> _equipments = new();
+        public ObservableCollection<EquipmentViewModel> Equipments
+        { 
+            get { return _equipments; } 
             set { _equipments = value; OnPropertyChanged(); }
         }
 
-        private Equipment selectedEquipment;
-        public Equipment SelectedEquipment
+        private ObservableCollection<CustomerViewModel> _customers = new();
+        public ObservableCollection<CustomerViewModel> Customers 
+        { 
+            get { return _customers;  }
+            set { _customers = value; OnPropertyChanged(); } 
+        }
+
+        private EquipmentViewModel selectedEquipment;
+        public EquipmentViewModel SelectedEquipment
         {
             get => selectedEquipment;
             set { selectedEquipment = value; OnPropertyChanged(); }
@@ -48,16 +46,21 @@ namespace MetroTherm.ViewModel
 
         public MainViewModel()
         {
+            equipmentRepo = new EquipmentRepository();
+            customerRepo = new CustomerRepository();
+
+            foreach (Equipment equipment in equipmentRepo.GetAll())
+                Equipments.Add(new EquipmentViewModel(equipment));
+
+            foreach (Customer customer in customerRepo.GetAll())
+                Customers.Add(new CustomerViewModel(customer));
+
+
             ShowMessageCommand = new RelayCommand(
                 execute: _ => ShowMessage(),
                 canExecute: _ => true
-        );
+            );
 
-            IDataHandler dataHandler = new DataHandler("kundeliste.txt");
-            Customers = new ObservableCollection<Customer>(dataHandler.LoadData<Customer>());
-
-            IDataHandler equipmentDataHandler = new DataHandler("myuplink_points_file1_LSC-HL000209-RXpO4.txt");
-            Equipments = new ObservableCollection<Equipment>(equipmentDataHandler.LoadData<Equipment>());
         }
 
         public void showEquipment(Equipment equipment)
@@ -65,20 +68,20 @@ namespace MetroTherm.ViewModel
 
         }
 
-        public Equipment chooseEquipment(Equipment equipment)
+        public EquipmentViewModel chooseEquipment(EquipmentViewModel equipment)
         {
             return equipment;
         }
 
-        private Customer _billingCustomer;
-        public Customer BillingCustomer
+        private CustomerViewModel _billingCustomer;
+        public CustomerViewModel BillingCustomer
         {
             get => _billingCustomer;
             set { _billingCustomer = value; OnPropertyChanged(); }
         }
 
-        private Equipment _billingEquipment;
-        public Equipment BillingEquipment
+        private EquipmentViewModel _billingEquipment;
+        public EquipmentViewModel BillingEquipment
         {
             get => _billingEquipment;
             set { _billingEquipment = value; OnPropertyChanged(); }
