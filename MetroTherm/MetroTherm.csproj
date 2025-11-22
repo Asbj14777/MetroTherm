@@ -9,9 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="kundeliste.txt" />
     <None Remove="Metrotherm Logoos.png" />
-    <None Remove="myuplink_points_file1_LSC-HL000209-RXpO4.txt" />
   </ItemGroup>
 
   <ItemGroup>

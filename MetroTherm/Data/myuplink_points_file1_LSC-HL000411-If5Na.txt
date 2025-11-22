@@ -1,4 +1,0 @@
-deviceId	serialNumber	productName	connectionState	currentFwVersion	desiredFwVersion	parameterId	parameterName	value	strVal	parameterUnit	timestamp	category	writable	minValue	maxValue	stepValue	scaleValue	zoneId	smartHomeCategories	enumValues
-LSC-HL000411-If5Na	250715-007718-059380	Metro Superb S	Connected	46.1.5	1.4	1010	Heat energy E1	303	303		2025-10-10T07:36:44+00:00	Vision Duo	False			1	1			
-LSC-HL000411-If5Na	250715-007718-059380	Metro Superb S	Connected	46.1.5	1.4	1012	Cooling energy E3	99	99		2025-10-10T07:36:44+00:00	Vision Duo	False			1	1			
-LSC-HL000411-If5Na	250715-007718-059380	Metro Superb S	Connected	46.1.5	1.4	1051	MC2 Heat energy E1	804	804		2025-10-16T17:48:18+00:00	Vision Duo	False			1	1			

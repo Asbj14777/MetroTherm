@@ -1,6 +1,0 @@
-deviceId	serialNumber	productName	connectionState	currentFwVersion	desiredFwVersion	pointsCount
-LSC-HL000209-RXpO4	000000-222222-444444	Metro Superb S	Connected	27.1.5	1.4	3
-emmy-n-20230621-50585420013306-04-91-62-24-86-98	50585420013306	METROAIR 330	Connected	9721R3	9721R3	0
-LSC-HL000424-gK6s8	000000-000020-017356	Metro System 4	Connected	34.1.5	1.4	3
-LSC-HL000411-If5Na	250715-007718-059380	Metro Superb S	Connected	46.1.5	1.4	3
-LSC-HL000609-nOgrw	550570954617	System Comfort Plus	Disconnected	1.4	1.4	3

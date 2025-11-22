@@ -1,4 +1,0 @@
-deviceId	serialNumber	productName	connectionState	currentFwVersion	desiredFwVersion	parameterId	parameterName	value	strVal	parameterUnit	timestamp	category	writable	minValue	maxValue	stepValue	scaleValue	zoneId	smartHomeCategories	enumValues
-LSC-HL000209-RXpO4	000000-222222-444444	Metro Superb S	Connected	27.1.5	1.4	1010	Heat energy E1	600	600		2025-10-18T11:03:44+00:00	Vision Duo	False			1	1			
-LSC-HL000209-RXpO4	000000-222222-444444	Metro Superb S	Connected	27.1.5	1.4	1012	Cooling energy E3	200	200		2025-10-18T11:03:44+00:00	Vision Duo	False			1	1			
-LSC-HL000209-RXpO4	000000-222222-444444	Metro Superb S	Connected	27.1.5	1.4	1051	MC2 Heat energy E1	1000	1000		2025-10-18T11:03:44+00:00	Vision Duo	False			1	1			
