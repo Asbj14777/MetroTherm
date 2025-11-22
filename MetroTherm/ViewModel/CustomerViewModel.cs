@@ -16,6 +16,7 @@ namespace MetroTherm.ViewModel
         {
             get { return _customer.ID; }
             set { _customer.ID = value; OnPropertyChanged(); }
+
         }
 
         public string Name
