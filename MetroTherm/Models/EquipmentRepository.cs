@@ -72,13 +72,13 @@ namespace MetroTherm.Models
                 return 0;
 
             return equipments.Where
-                            (e => e != null
-                            && string.Equals(e.DeviceId, customer.ID, StringComparison.OrdinalIgnoreCase)
-                            && DateTime.TryParse(e.Timestamp, out var ts) && ts >= fromDate && ts <= toDate
-                            && string.Equals(e.ParameterName, unitType, StringComparison.OrdinalIgnoreCase) 
-                            && double.TryParse(e.Value, out _))
+                            (equipment => equipment != null
+                            && string.Equals(equipment.DeviceId, customer.ID, StringComparison.OrdinalIgnoreCase)
+                            && DateTime.TryParse(equipment.Timestamp, out var timstamp) && timstamp >= fromDate && timstamp <= toDate
+                            && string.Equals(equipment.ParameterName, unitType, StringComparison.OrdinalIgnoreCase) 
+                            && double.TryParse(equipment.Value, out _))
                 
-                .Sum(e => double.Parse(e.Value));
+                .Sum(equipment => double.Parse(equipment.Value));
         }
     }
 }
