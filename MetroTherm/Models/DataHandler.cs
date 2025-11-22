@@ -22,7 +22,7 @@ namespace MetroTherm.Models
         {
             if (!File.Exists(DataFileName))
                 throw new FileNotFoundException($"File not found: {DataFileName}");
-
+           
             var lines = File.ReadAllLines(DataFileName);
             if (lines.Length <= 1) return new List<T>();
 

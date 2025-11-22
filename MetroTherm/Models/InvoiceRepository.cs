@@ -1,18 +1,25 @@
-﻿using System;
+﻿using MetroTherm.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MetroTherm.Models
 {
     public class InvoiceRepository
     {
+        private readonly IDataHandler _handler;        
         private readonly List<Invoice> _invoices = new(); 
+        private readonly MainViewModel _mainViewModel;     
+        private readonly EquipmentRepository _equipmentRepository;      
 
-        public InvoiceRepository() 
-        { 
+        public InvoiceRepository(MainViewModel mvm) 
+        {
+            _mainViewModel = mvm;
+            
         }
 
         // Tilføj en faktura
@@ -57,5 +64,7 @@ namespace MetroTherm.Models
             return new List<Invoice>(_invoices);
         }
 
+
+    
     }
 }

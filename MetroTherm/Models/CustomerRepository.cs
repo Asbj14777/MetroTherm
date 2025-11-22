@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MetroTherm.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace MetroTherm.Models
     {
         private List<Customer> customers; // gemmer kunder i hukommelsen
 
-        public CustomerRepository()     
+        public CustomerRepository(MainViewModel mvm)     
         {
             customers = new List<Customer>();
             InitializeRepository();

@@ -227,18 +227,18 @@
                                     <TextBlock Text="Udstyr:" VerticalAlignment="Center" Width="80"/>
                                     <ListBox x:Name="BillingEquipmentListBox" 
              Width="300" Height="80"
-             ItemsSource="{Binding Equipments}"
-             DisplayMemberPath="ParameterName"
+             ItemsSource="{Binding BillingCustomer}"
+             DisplayMemberPath="Name"
              SelectedItem="{Binding BillingEquipment, Mode=TwoWay}" />
                                 </StackPanel>
 
                                 <!-- Periode -->
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                                     <TextBlock Text="Fra dato:" VerticalAlignment="Center" Width="80"/>
-                                    <DatePicker x:Name="BillingFromDatePicker" Width="150" Margin="0,0,20,0"/>
+                                    <DatePicker x:Name="BillingFromDatePicker" Width="150" Margin="0,0,20,0" SelectedDate="{Binding FromDate}"/>
 
                                     <TextBlock Text="Til dato:" VerticalAlignment="Center" Width="80"/>
-                                    <DatePicker x:Name="BillingToDatePicker" Width="150"/>
+                                    <DatePicker x:Name="BillingToDatePicker" Width="150" SelectedDate="{Binding ToDate}"/>
 
                                     <Button Content="Hent målinger" Margin="20,0,0,0" Padding="10,5"/>
                                 </StackPanel>
@@ -327,7 +327,7 @@
 
                             <!-- Knapper -->
                             <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
-                                <Button Content="Generér faktura" Width="140" Margin="0,0,10,0" Padding="10,5"/>
+                                <Button Content="Generér faktura" Width="140" Margin="0,0,10,0" Padding="10,5" Command="{Binding GenerateInvoice}"/>
                                 <Button Content="Udskriv" Width="100" Margin="0,0,10,0" Padding="10,5" IsEnabled="False"/>
                                 <Button Content="Download som PDF" Width="150" Margin="0,0,10,0" Padding="10,5" IsEnabled="False"/>
                             </StackPanel>

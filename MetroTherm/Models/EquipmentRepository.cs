@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MetroTherm.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace MetroTherm.Models
     {
         private List<Equipment> equipments; // gemmer udstyr i hukommelsen
 
-        public EquipmentRepository()     
+        public EquipmentRepository(MainViewModel mvm)     
         {
             equipments = new List<Equipment>();
             InitializeRepository();
@@ -63,5 +64,23 @@ namespace MetroTherm.Models
         {
             return equipments;
         }
+
+        public double GetTotalKwh(CustomerViewModel customer, string unitType, DateTime fromDate, DateTime toDate)
+        {
+            if (customer == null || !equipments.Any())
+                return 0;
+
+            return equipments
+                .Where(e => e != null
+                            && string.Equals(e.DeviceId, customer.ID, StringComparison.OrdinalIgnoreCase)
+                            && DateTime.TryParse(e.Timestamp, out var ts) && ts >= fromDate && ts <= toDate
+                            && string.Equals(e.ParameterName, unitType, StringComparison.OrdinalIgnoreCase) 
+                            && double.TryParse(e.Value, out _))
+                
+                .Sum(e => double.Parse(e.Value));
+        }
+
+
+        
     }
 }
