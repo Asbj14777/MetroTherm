@@ -42,40 +42,34 @@ namespace MetroTherm.ViewModel
             get => selectedEquipment;
             set { selectedEquipment = value; OnPropertyChanged(); }
         }
-        public ICommand ShowMessageCommand { get; }
-
-
+     
         public ICommand GenerateInvoice {  get; }   
-
-
-
-        private void ShowMessage()
-        {
-            MessageBox.Show(SelectedEquipment.ParameterName);
-        }
-
+        public ICommand GetCalculations {  get; }
         public MainViewModel()
         {
-            equipmentRepo = new EquipmentRepository(this);
-            customerRepo = new CustomerRepository(this);
-            invoiceRepository = new InvoiceRepository(this);
+            equipmentRepo = new EquipmentRepository();
+            
+            customerRepo = new CustomerRepository();
+            
+            invoiceRepository = new InvoiceRepository();
+            
             _handler = new DataHandler(null); 
+            
             foreach (Equipment equipment in equipmentRepo.GetAll())
                 Equipments.Add(new EquipmentViewModel(equipment));
 
             foreach (Customer customer in customerRepo.GetAll())
                 Customers.Add(new CustomerViewModel(customer));
 
-
-            ShowMessageCommand = new RelayCommand(
-                execute: _ => ShowMessage(),
-                canExecute: _ => true
+            GetCalculations = new RelayCommand(
+                execute: _ => getCalculations(),
+                canExecute: _ => BillingCustomer != null
             );
-
             GenerateInvoice = new RelayCommand(
                 execute: _ => SaveInvoice(),
-                canExecute: _ => BillingCustomer != null && FromDate != null && ToDate != null
-                );
+                canExecute: _ => BillingCustomer != null && Subtotal > 1
+            );
+      
         }
 
         private CustomerViewModel _billingCustomer;
@@ -91,21 +85,21 @@ namespace MetroTherm.ViewModel
             get => _billingEquipment;
             set { _billingEquipment = value; OnPropertyChanged(); }
         }
-        private double _pricePerKwh1;
+        private double _pricePerKwh1 = 0.1;
         public double PricePerKwh1
         {
             get => _pricePerKwh1;
             set { _pricePerKwh1 = value; OnPropertyChanged(); }
         }
 
-        private double _pricePerKwh2;
+        private double _pricePerKwh2 = 0.1;
         public double PricePerKwh2
         {
             get => _pricePerKwh2;
             set { _pricePerKwh2 = value; OnPropertyChanged(); }
         }
 
-        private double _pricePerKwh3;
+        private double _pricePerKwh3 = 0.1;
         public double PricePerKwh3
         {
             get => _pricePerKwh3;
@@ -118,67 +112,108 @@ namespace MetroTherm.ViewModel
             get => _fromDate; 
             set
             {
+                if (_fromDate == value)
+                    return;
+
                 _fromDate = value;
                 OnPropertyChanged(); 
             }
         }
 
-        private DateTime _toDate = DateTime.Today; 
+        private DateTime _toDate = DateTime.Today.AddDays(1); 
         public DateTime ToDate
         {
             get => _toDate; 
             set
             {
+                if (_toDate == value)
+                    return;
+
                 _toDate = value; 
                 OnPropertyChanged(); 
             }
         }
 
-        private double getPricePerKwh(double Heat_energy_E1 = 0.0, double Cooling_energy_E3 = 0.0, double MC2_Heat_energy_E1 = 0.0)
+        private double _subtotal;
+        public double Subtotal
         {
-            double Heat_energy_E1_price = Heat_energy_E1 * PricePerKwh1;
+            get => _subtotal;
+            set {
+                if (_subtotal == value) 
+                    return;
+                _subtotal = value; 
+                OnPropertyChanged();
+            }
+        }
 
-            double Cooling_energy_E3_price = Cooling_energy_E3 * PricePerKwh2;
+        private double _vat;
+        public double Vat
+        {
+            get => _vat;
+            set 
+            {
+               if(_vat == value) 
+                    return;
+                _vat = value;
+                OnPropertyChanged(); 
+            }
+        }
 
-            double MC2_Heat_energy_E1_price = MC2_Heat_energy_E1 * PricePerKwh3;
+        private double _total;
+        public double Total
+        {
+            get => _total;
+            set
+            {
+                if(_total == value) 
+                    return;
+                _total = value; 
+                OnPropertyChanged(); 
+            }
+        }
 
-            double total_price = Heat_energy_E1_price + Cooling_energy_E3_price + MC2_Heat_energy_E1_price;
+        private void getCalculations()
+        {
+            double vat = 0.25;
+            double subtotal = 0.0;
 
-            return total_price; 
+            var energyItems = new List<(string Type, double PricePerKwh)>
+            {
+                ("Heat Energy E1",     PricePerKwh1),
+                ("Cooling energy E3",  PricePerKwh2),
+                ("MC2 Heat energy E1", PricePerKwh3)
+            };
+
+            foreach (var item in energyItems)
+            {
+                double kwh = equipmentRepo.GetTotalKwh(BillingCustomer, item.Type, FromDate, ToDate);
+                subtotal += kwh * item.PricePerKwh;
+            }
+
+            Subtotal =      subtotal;
+            Vat =           (Subtotal * vat);
+            Total =         (Subtotal + Vat);
         }
         private void SaveInvoice()
         {
-            var person = BillingCustomer;
-            
-            double H_E_E1 = equipmentRepo.GetTotalKwh(person, "Heat energy E1", FromDate, ToDate);
-            double C_E_E3 = equipmentRepo.GetTotalKwh(person, "Cooling energy E3", FromDate, ToDate);
-            double MC2_H_E_E1 = equipmentRepo.GetTotalKwh(person, "MC2 Heat energy E1", FromDate, ToDate);
-
-            double subtotal = getPricePerKwh(H_E_E1, C_E_E3, MC2_H_E_E1);
-
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine("=================== BØRGE'S VARME ================");
             sb.AppendLine("                       FAKTURA");
             sb.AppendLine(new string('-', 50));
-
-            sb.AppendLine($"Kunde      : {person.Name}");
-            sb.AppendLine($"Adresse    : {person.Address}");
+            sb.AppendLine($"Kunde      : {BillingCustomer.Name}");
+            sb.AppendLine($"Adresse    :  {BillingCustomer.Address}");
             sb.AppendLine(new string('-', 50));
-
-            sb.AppendLine("Beskrivelse: Varmelevering / Energiforbrug");
+            sb.AppendLine($"Tids Periode : {FromDate:dd-MM-yyyy} til {ToDate:dd-MM-yyyy}");
             sb.AppendLine(new string('-', 50));
-
-            sb.AppendLine($"Subtotal   : {subtotal:F2} kr");
-            double moms = subtotal * 0.25;
-            sb.AppendLine($"Moms (25%) : {moms:F2} kr");
+            sb.AppendLine($"Subtotal   : {Subtotal:F2} kr");
+            sb.AppendLine($"Moms (25%) : {Vat:F2} kr");
             sb.AppendLine(new string('-', 50));
-
-            sb.AppendLine($"Total inkl. moms: {(subtotal + moms):F2} kr");
+            sb.AppendLine($"Total inkl. moms: {Total:F2} kr");
             sb.AppendLine(new string('=', 50));
 
-            _handler.SaveData($"faktura_{person.Name}.txt", sb.ToString());
-            MessageBox.Show("Faktura Gemt");
+            if(_handler.SaveData(sb.ToString()))
+                MessageBox.Show("Faktura Gemt");
         }
     }
 }

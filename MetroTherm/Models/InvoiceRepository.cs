@@ -16,9 +16,9 @@ namespace MetroTherm.Models
         private readonly MainViewModel _mainViewModel;     
         private readonly EquipmentRepository _equipmentRepository;      
 
-        public InvoiceRepository(MainViewModel mvm) 
+        public InvoiceRepository() 
         {
-            _mainViewModel = mvm;
+
             
         }
 

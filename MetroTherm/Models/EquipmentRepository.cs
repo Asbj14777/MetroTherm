@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MetroTherm.Models
 {
@@ -12,7 +13,7 @@ namespace MetroTherm.Models
     {
         private List<Equipment> equipments; // gemmer udstyr i hukommelsen
 
-        public EquipmentRepository(MainViewModel mvm)     
+        public EquipmentRepository()     
         {
             equipments = new List<Equipment>();
             InitializeRepository();
@@ -70,8 +71,8 @@ namespace MetroTherm.Models
             if (customer == null || !equipments.Any())
                 return 0;
 
-            return equipments
-                .Where(e => e != null
+            return equipments.Where
+                            (e => e != null
                             && string.Equals(e.DeviceId, customer.ID, StringComparison.OrdinalIgnoreCase)
                             && DateTime.TryParse(e.Timestamp, out var ts) && ts >= fromDate && ts <= toDate
                             && string.Equals(e.ParameterName, unitType, StringComparison.OrdinalIgnoreCase) 
@@ -79,8 +80,5 @@ namespace MetroTherm.Models
                 
                 .Sum(e => double.Parse(e.Value));
         }
-
-
-        
     }
 }

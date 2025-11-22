@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -9,7 +10,7 @@ namespace MetroTherm.Models
     public interface IDataHandler
     {
         IEnumerable<T> LoadData<T>() where T : class;
-        void SaveData(string path, string content); 
+        bool SaveData(string content); 
     }
 
     public class DataHandler : IDataHandler
@@ -63,19 +64,17 @@ namespace MetroTherm.Models
             }
             return list;
         }
-        public void SaveData(string path, string content)
+        public bool SaveData(string content)
         {
-            if(File.Exists(path))
-                File.Delete(path);  
-            try
-            { 
-                File.WriteAllText(path, content );
-            }
-            catch (Exception ex) 
-            { 
-                throw new Exception(ex.Message);
-            }        
+           FileDialog fileDialog = new SaveFileDialog();
+           fileDialog.Title = "Vælg Hvor Faktura Skal Gemmes";
+           fileDialog.Filter = "Text Files |*.txt"; 
+           if(fileDialog.ShowDialog() == true)
+           {
+                File.WriteAllText(fileDialog.FileName, content);
+                return true;
+           }
+           return false;        
         }
     }
-   
 }

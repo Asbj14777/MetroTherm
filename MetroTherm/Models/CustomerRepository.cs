@@ -13,7 +13,7 @@ namespace MetroTherm.Models
     {
         private List<Customer> customers; // gemmer kunder i hukommelsen
 
-        public CustomerRepository(MainViewModel mvm)     
+        public CustomerRepository()     
         {
             customers = new List<Customer>();
             InitializeRepository();
