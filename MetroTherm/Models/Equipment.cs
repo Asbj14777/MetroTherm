@@ -28,6 +28,7 @@ namespace MetroTherm.Models
         public string ZoneId { get; }
         public string SmartHomeCategories { get; }
         public string EnumValues { get; }
+        public string CustomerId { get; }
 
         public Equipment
         (
@@ -38,6 +39,7 @@ namespace MetroTherm.Models
             string zoneID, string smarthomeCatagories, string enumValue)
         {
             DeviceId = deviceID;
+            CustomerId = deviceID;
             SerialNumber = serialNumber;
             ProductName = productName;
             ConnectionState = connectionstate;

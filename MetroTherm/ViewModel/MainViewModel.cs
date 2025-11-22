@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Globalization;
 
 namespace MetroTherm.ViewModel
 {
@@ -30,6 +31,38 @@ namespace MetroTherm.ViewModel
             get { return _customers;  }
             set { _customers = value; OnPropertyChanged(); } 
         }
+
+        private CustomerViewModel _selectedCustomer;
+        public CustomerViewModel SelectedCustomer
+        {
+            get => _selectedCustomer;
+            set 
+            { 
+                if (_selectedCustomer != value)
+                {
+                    _selectedCustomer = value; 
+                    OnPropertyChanged();
+                    UpdateSelectedCustomerData();
+
+                }
+            }
+        }
+
+        private ObservableCollection<EquipmentViewModel> _customerEquipments = new();
+        public ObservableCollection<EquipmentViewModel> CustomerEquipments
+        {
+            get => _customerEquipments;
+            set { _customerEquipments = value; OnPropertyChanged(); }
+        }
+
+        private double _customerUsage;
+        public double CustomerUsage
+        {
+            get => _customerUsage;
+            set { _customerUsage = value; OnPropertyChanged(); }
+        }
+
+
 
         private EquipmentViewModel selectedEquipment;
         public EquipmentViewModel SelectedEquipment
@@ -107,6 +140,34 @@ namespace MetroTherm.ViewModel
             set { _pricePerKwh3 = value; OnPropertyChanged(); }
         }
 
+        private void UpdateSelectedCustomerData()
+        {
+            CustomerEquipments.Clear();
+            CustomerUsage = 0;
 
+            if (SelectedCustomer == null)
+                return;
+
+            var allEqForCustomer = equipmentRepo
+                .GetAll()
+                .Where(e => e.DeviceId == SelectedCustomer.ID)
+                .ToList();
+
+
+            foreach (var eq in allEqForCustomer)
+                CustomerEquipments.Add(new EquipmentViewModel(eq));
+
+            double usage = 0;
+            foreach (var eq in allEqForCustomer)
+            {
+                if (double.TryParse(eq.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out double v))
+                {
+                    usage += v;
+                }
+            }
+
+            CustomerUsage = usage;
+
+        }
     }
 }

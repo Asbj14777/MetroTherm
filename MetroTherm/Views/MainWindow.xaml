@@ -157,18 +157,16 @@
                 <TabItem Header="Kundeliste">
                     <Grid Margin="10">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <!-- Søg/topkontroller -->
-                            <RowDefinition Height="*"/>
-                            <!-- Tabel -->
+                            <RowDefinition Height="Auto"/> <!-- Toplinje -->
+                            <RowDefinition Height="2*"/> <!-- Kundetabel -->
+                            <RowDefinition Height="2*"/> <!-- Udstyr til kunden -->
+                            <RowDefinition Height="Auto"/> <!-- Kundens forbrug -->                         
                         </Grid.RowDefinitions>
 
                         <!-- TOPLINJE -->
-                        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
-
-
-
-                            <StackPanel Orientation="Horizontal"/>
+                        <StackPanel Orientation="Horizontal" 
+                                    Grid.Row="0" 
+                                    Margin="0,0,0,10">
                         </StackPanel>
 
 
@@ -177,14 +175,39 @@
           x:Name="CustomerDataGrid"
           AutoGenerateColumns="False"
           IsReadOnly="True"
-          ItemsSource="{Binding Customers}">
+          ItemsSource="{Binding Customers}"
+          SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}" >
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Udstyr-ID" Binding="{Binding ID}" Width="*"/>
                                 <DataGridTextColumn Header="Navn" Binding="{Binding Name}" Width="2*"/>
                                 <DataGridTextColumn Header="Adresse" Binding="{Binding Address}" Width="2*"/>
                             </DataGrid.Columns>
                         </DataGrid>
-
+                        <!-- Udstyr som tilhører den valgte kunde -->
+                        <GroupBox Grid.Row="2"
+                                  Header="Udstyr til valgt kunde"
+                                  Margin="0,10,0,0">
+                            <DataGrid AutoGenerateColumns="False"
+                                      IsReadOnly="True"
+                                      ItemsSource="{Binding CustomerEquipments}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="DeviceId" Binding="{Binding DeviceId}"/>
+                                    <DataGridTextColumn Header="Produktnavn" Binding="{Binding ProductName}"/>
+                                    <DataGridTextColumn Header="Parameter" Binding="{Binding ParameterName}"/>
+                                    <DataGridTextColumn Header="Værdi" Binding="{Binding Value}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </GroupBox>
+                        
+                        <TextBlock Grid.Row="3"
+                                   Margin="0,10,0,0"
+                                   FontSize="16"
+                                   FontWeight="Bold">
+                                   <Run Text="Samlet forbrug: " />
+                              <Run Text="Samlet forbrug: "/>
+                            <Run Text="{Binding CustomerUsage}"/>
+                            <Run Text=" kWh"/>
+                        </TextBlock>
 
                     </Grid>
                 </TabItem>
