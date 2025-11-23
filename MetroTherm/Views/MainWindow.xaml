@@ -189,7 +189,7 @@
                                   Margin="0,10,0,0">
                             <DataGrid AutoGenerateColumns="False"
                                       IsReadOnly="True"
-                                      ItemsSource="{Binding CustomerEquipments}">
+                                      ItemsSource="{Binding SelectedCustomer.CustomerEquipments}">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="DeviceId" Binding="{Binding DeviceId}"/>
                                     <DataGridTextColumn Header="Produktnavn" Binding="{Binding ProductName}"/>
@@ -204,8 +204,7 @@
                                    FontSize="16"
                                    FontWeight="Bold">
                                    <Run Text="Samlet forbrug: " />
-                              <Run Text="Samlet forbrug: "/>
-                            <Run Text="{Binding CustomerUsage}"/>
+                            <Run Text="{Binding SelectedCustomer.CustomerUsage}"/>
                             <Run Text=" kWh"/>
                         </TextBlock>
 

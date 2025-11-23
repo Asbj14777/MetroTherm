@@ -42,27 +42,9 @@ namespace MetroTherm.ViewModel
                 {
                     _selectedCustomer = value; 
                     OnPropertyChanged();
-                    UpdateSelectedCustomerData();
-
                 }
             }
         }
-
-        private ObservableCollection<EquipmentViewModel> _customerEquipments = new();
-        public ObservableCollection<EquipmentViewModel> CustomerEquipments
-        {
-            get => _customerEquipments;
-            set { _customerEquipments = value; OnPropertyChanged(); }
-        }
-
-        private double _customerUsage;
-        public double CustomerUsage
-        {
-            get => _customerUsage;
-            set { _customerUsage = value; OnPropertyChanged(); }
-        }
-
-
 
         private EquipmentViewModel selectedEquipment;
         public EquipmentViewModel SelectedEquipment
@@ -88,6 +70,7 @@ namespace MetroTherm.ViewModel
             foreach (Customer customer in customerRepo.GetAll())
                 Customers.Add(new CustomerViewModel(customer));
 
+            AssignCustomerEquipment(); // assigns equipments to each customer
 
             ShowMessageCommand = new RelayCommand(
                 execute: _ => ShowMessage(),
@@ -140,34 +123,19 @@ namespace MetroTherm.ViewModel
             set { _pricePerKwh3 = value; OnPropertyChanged(); }
         }
 
-        private void UpdateSelectedCustomerData()
+        private void AssignCustomerEquipment()
         {
-            CustomerEquipments.Clear();
-            CustomerUsage = 0;
-
-            if (SelectedCustomer == null)
-                return;
-
-            var allEqForCustomer = equipmentRepo
-                .GetAll()
-                .Where(e => e.DeviceId == SelectedCustomer.ID)
-                .ToList();
-
-
-            foreach (var eq in allEqForCustomer)
-                CustomerEquipments.Add(new EquipmentViewModel(eq));
-
-            double usage = 0;
-            foreach (var eq in allEqForCustomer)
+            foreach (CustomerViewModel customer in Customers)
             {
-                if (double.TryParse(eq.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out double v))
+                foreach (EquipmentViewModel eq in Equipments)
                 {
-                    usage += v;
+                    // checks if device id is same as customer id
+                    if (eq.DeviceId == customer.ID)
+                    {
+                        customer.CustomerEquipments.Add(eq);
+                    }
                 }
             }
-
-            CustomerUsage = usage;
-
-        }
+        }        
     }
 }
