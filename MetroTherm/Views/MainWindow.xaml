@@ -70,9 +70,9 @@
                     <!-- Søgning -->
                     <GroupBox Header="Søgning" Margin="0,0,0,10">
                         <StackPanel Margin="5">
-                            <TextBlock Text="Søg (kunde, udstyr...)" Margin="0,0,0,5"/>
-                            <TextBox x:Name="SearchTextBox" />
-                            <Button Content="Søg" Margin="0,10,0,0" />
+                            <TextBlock Text="Søg (kunde, udstyr...)" Margin="0,0,0,5" IsEnabled="False"/>
+                            <TextBox x:Name="SearchTextBox" IsEnabled="False" />
+                            <Button Content="Søg" Margin="0,10,0,0" IsEnabled="False" />
                         </StackPanel>
                     </GroupBox>
 
@@ -251,7 +251,7 @@
                                     <TextBlock Text="Udstyr:" VerticalAlignment="Center" Width="80"/>
                                     <ListBox x:Name="BillingEquipmentListBox" 
              Width="300" Height="80"
-             ItemsSource="{Binding Equipments}"
+             ItemsSource="{Binding BillingEquipments}"
              DisplayMemberPath="ParameterName"
              SelectedItem="{Binding BillingEquipment, Mode=TwoWay}" />
                                 </StackPanel>
@@ -279,30 +279,31 @@
 
                                 <!-- Elpris 1 -->
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                    <TextBlock Text="Heat Energy E1 pris pr. kWh:" 
-                       Width="220" VerticalAlignment="Center"/>
+                                    <TextBlock Width="220" VerticalAlignment="Center"
+               Text="{Binding ModelName1, StringFormat={}{0} pris pr. kWh:}"/>
                                     <TextBox Width="80"
-                     Text="{Binding PricePerKwh1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+             Text="{Binding PricePerKwh1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     <TextBlock Text="kr." VerticalAlignment="Center" Margin="5,0,0,0"/>
                                 </StackPanel>
 
                                 <!-- Elpris 2 -->
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                    <TextBlock Text="Cooling Energy E3 pris pr. kWh:" 
-                       Width="220" VerticalAlignment="Center"/>
+                                    <TextBlock Width="220" VerticalAlignment="Center"
+               Text="{Binding ModelName2, StringFormat={}{0} pris pr. kWh:}"/>
                                     <TextBox Width="80"
-                     Text="{Binding PricePerKwh2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+             Text="{Binding PricePerKwh2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     <TextBlock Text="kr." VerticalAlignment="Center" Margin="5,0,0,0"/>
                                 </StackPanel>
 
                                 <!-- Elpris 3 -->
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                    <TextBlock Text="MC2 Heat energy E1 pris pr. kWh:" 
-                       Width="220" VerticalAlignment="Center"/>
+                                    <TextBlock Width="220" VerticalAlignment="Center"
+               Text="{Binding ModelName3, StringFormat={}{0} pris pr. kWh:}"/>
                                     <TextBox Width="80"
-                     Text="{Binding PricePerKwh3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+             Text="{Binding PricePerKwh3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     <TextBlock Text="kr." VerticalAlignment="Center" Margin="5,0,0,0"/>
                                 </StackPanel>
+
 
                                 <!-- Moms -->
                                 <!-- Moms -->

@@ -43,6 +43,7 @@ namespace MetroTherm.ViewModel
                 if (_selectedCustomer != value)
                 {
                     _selectedCustomer = value;
+                    BillingCustomer = _selectedCustomer;
                     OnPropertyChanged();
                 }
             }
@@ -88,7 +89,15 @@ namespace MetroTherm.ViewModel
         public CustomerViewModel BillingCustomer
         {
             get => _billingCustomer;
-            set { _billingCustomer = value; OnPropertyChanged(); }
+            set
+            {
+                if (_billingCustomer != value)
+                {
+                    _billingCustomer = value;
+                    UpdateBillingEquipments();
+                    OnPropertyChanged();
+                }
+            }
         }
 
         private EquipmentViewModel _billingEquipment;
@@ -238,5 +247,80 @@ namespace MetroTherm.ViewModel
             else
                 MessageBox.Show("kunne ikke sendes. prøv igen");
         }
+
+        private string _modelName1;
+        public string ModelName1
+        {
+            get => _modelName1;
+            set { _modelName1 = value; OnPropertyChanged(); }
+        }
+
+        private string _modelName2;
+        public string ModelName2
+        {
+            get => _modelName2;
+            set { _modelName2 = value; OnPropertyChanged(); }
+        }
+
+        private string _modelName3;
+        public string ModelName3
+        {
+            get => _modelName3;
+            set { _modelName3 = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<EquipmentViewModel> _billingEquipments = new();
+        public ObservableCollection<EquipmentViewModel> BillingEquipments
+        {
+            get => _billingEquipments;
+            set { _billingEquipments = value; OnPropertyChanged(); }
+        }
+
+        public void UpdateBillingEquipments()
+        {
+            if (BillingCustomer == null)
+            {
+                BillingEquipments = new ObservableCollection<EquipmentViewModel>();
+                return;
+            }
+
+            string name = BillingCustomer.Name?.Trim();
+
+            string mustContain = name switch
+            {
+                "Lene Mortensen" => "RXpO4",
+                "Anders Poulsen" => "gK6s8",
+                _ => null
+            };
+
+            IEnumerable<EquipmentViewModel> filtered;
+
+            if (!string.IsNullOrEmpty(mustContain))
+            {
+                filtered = Equipments.Where(e =>
+                !string.IsNullOrEmpty(e.DeviceId) &&
+                e.DeviceId.Contains(mustContain, StringComparison.OrdinalIgnoreCase)).GroupBy(e => e.ParameterName).Select(g => g.First());
+
+            }
+            else
+            {
+                filtered = Enumerable.Empty<EquipmentViewModel>();
+            }
+
+            BillingEquipments = new ObservableCollection<EquipmentViewModel>(filtered);
+
+
+            var models = BillingEquipments
+                .Select(e => e.ParameterName)
+                .Take(3)
+                .ToList();
+
+            ModelName1 = models.Count > 0 ? models[0] : "";
+            ModelName2 = models.Count > 1 ? models[1] : "";
+            ModelName3 = models.Count > 2 ? models[2] : "";
+
+
+        }
+
     }
 }
