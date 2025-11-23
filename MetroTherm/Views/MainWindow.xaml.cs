@@ -23,7 +23,6 @@ namespace MetroTherm
             this.DataContext = viewModel; 
 
         }
-
-     }
+    }
  }
 

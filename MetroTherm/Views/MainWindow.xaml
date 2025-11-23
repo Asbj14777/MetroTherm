@@ -85,8 +85,10 @@
                 <TabItem Header="Dashboard">
                     <Grid Margin="10">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="66*"/>
-                            <ColumnDefinition Width="281*"/>
+                            <ColumnDefinition Width="82*"/>
+                            <ColumnDefinition Width="83*"/>
+                            <ColumnDefinition Width="99*"/>
+                            <ColumnDefinition Width="431*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -94,10 +96,10 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock Text="Dashboard" 
-                                   FontSize="20" FontWeight="Bold" Margin="0,0,0,10" Grid.ColumnSpan="2"/>
+                                   FontSize="20" FontWeight="Bold" Margin="0,0,0,10" Grid.ColumnSpan="4"/>
 
                         <!-- Her kan du senere placere kort/overblik -->
-                        <UniformGrid Grid.Row="1" Rows="1" Columns="3" Margin="0,10,0,0" Grid.ColumnSpan="2">
+                        <UniformGrid Grid.Row="1" Rows="1" Columns="3" Margin="0,10,0,0" Grid.ColumnSpan="4">
                             <Border BorderBrush="#CCCCCC" BorderThickness="1" Margin="5" Padding="10">
                                 <StackPanel>
                                     <TextBlock Text="Seneste aflæsninger" FontWeight="Bold"/>
@@ -212,7 +214,7 @@
                 </TabItem>
 
                 <!-- AFREGNING & FAKTURA -->
-                <TabItem Header="Afregning &amp; faktura">
+                <TabItem Header="Afregning &amp; faktura" Height="20" VerticalAlignment="Top">
                     <Grid Margin="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -257,12 +259,11 @@
                                 <!-- Periode -->
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                                     <TextBlock Text="Fra dato:" VerticalAlignment="Center" Width="80"/>
-                                    <DatePicker x:Name="BillingFromDatePicker" Width="150" Margin="0,0,20,0"/>
+                                    <DatePicker x:Name="BillingFromDatePicker" Width="150" Margin="0,0,20,0" SelectedDate="{Binding FromDate}"/>
 
                                     <TextBlock Text="Til dato:" VerticalAlignment="Center" Width="80"/>
-                                    <DatePicker x:Name="BillingToDatePicker" Width="150"/>
-
-                                    <Button Content="Hent målinger" Margin="20,0,0,0" Padding="10,5"/>
+                                    <DatePicker x:Name="BillingToDatePicker" Width="150" SelectedDate="{Binding ToDate}"/>
+                                    <Button Content="Hent målinger" Margin="20,0,0,0" Padding="10,5" Command="{Binding GetCalculations}"/>
                                 </StackPanel>
 
                                 <!-- Resultat af forbrug -->
@@ -309,7 +310,7 @@
                                     <TextBlock Text="Moms-sats:" 
                Width="220"
                VerticalAlignment="Center"/>
-                                    <TextBox x:Name="VatRateTextBox"
+                                    <TextBox x:Name="VatRateTextBox" IsReadOnly="True"
              Width="80"
              Text="25"/>
                                     <TextBlock Text="%" 
@@ -320,19 +321,22 @@
 
                                 <!-- Resumé -->
                                 <StackPanel>
-                                    <TextBlock x:Name="BillingResultEnergyTextBlock"
-                       Text="Energi-beløb ekskl. moms: -"
-                       Margin="0,0,0,2"/>
-                                    <TextBlock x:Name="BillingResultSubtotalTextBlock"
-                       Text="Subtotal ekskl. moms: -"
-                       Margin="0,0,0,2"/>
-                                    <TextBlock x:Name="BillingResultVatTextBlock"
-                       Text="Moms: -"
-                       Margin="0,0,0,2"/>
-                                    <TextBlock x:Name="BillingResultTotalTextBlock"
-                       Text="Total inkl. moms: -"
-                       FontWeight="Bold"
-                       Margin="0,5,0,0"/>
+                                    <TextBlock 
+        Text="{Binding Subtotal, StringFormat='Energi-beløb ekskl. moms: {0:F2} kr'}"
+        Margin="0,0,0,2"/>
+
+                                    <TextBlock 
+        Text="{Binding Subtotal, StringFormat='Subtotal ekskl. moms: {0:F2} kr'}"
+        Margin="0,0,0,2"/>
+
+                                    <TextBlock 
+        Text="{Binding Vat, StringFormat='Moms: {0:F2} kr'}"
+        Margin="0,0,0,2"/>
+
+                                    <TextBlock 
+        FontWeight="Bold"
+        Text="{Binding Total, StringFormat='Total inkl. moms: {0:F2} kr'}"
+        Margin="0,5,0,0"/>
                                 </StackPanel>
 
                             </StackPanel>
@@ -349,7 +353,7 @@
 
                             <!-- Knapper -->
                             <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
-                                <Button Content="Generér faktura" Width="140" Margin="0,0,10,0" Padding="10,5"/>
+                                <Button Content="Generér faktura" Width="140" Margin="0,0,10,0" Padding="10,5" Command="{Binding GenerateInvoice}"/>
                                 <Button Content="Udskriv" Width="100" Margin="0,0,10,0" Padding="10,5" IsEnabled="False"/>
                                 <Button Content="Download som PDF" Width="150" Margin="0,0,10,0" Padding="10,5" IsEnabled="False"/>
                             </StackPanel>

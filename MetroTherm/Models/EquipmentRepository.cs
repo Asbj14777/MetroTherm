@@ -1,9 +1,11 @@
-﻿using System;
+﻿using MetroTherm.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MetroTherm.Models
 {
@@ -62,6 +64,21 @@ namespace MetroTherm.Models
         public List<Equipment> GetAll()
         {
             return equipments;
+        }
+
+        public double GetTotalKwh(CustomerViewModel customer, string unitType, DateTime fromDate, DateTime toDate)
+        {
+            if (customer == null || !equipments.Any())
+                return 0;
+
+            return equipments.Where
+                            (equipment => equipment != null
+                            && string.Equals(equipment.DeviceId, customer.ID, StringComparison.OrdinalIgnoreCase)
+                            && DateTime.TryParse(equipment.Timestamp, out var timstamp) && timstamp >= fromDate && timstamp <= toDate
+                            && string.Equals(equipment.ParameterName, unitType, StringComparison.OrdinalIgnoreCase) 
+                            && double.TryParse(equipment.Value, out _))
+                
+                .Sum(equipment => double.Parse(equipment.Value));
         }
     }
 }

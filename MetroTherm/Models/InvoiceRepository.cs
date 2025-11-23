@@ -1,34 +1,38 @@
-﻿using System;
+﻿using MetroTherm.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MetroTherm.Models
 {
     public class InvoiceRepository
-    {
-        private readonly List<Invoice> _invoices = new(); 
+    { 
+        private readonly List<Invoice> invoices = new();
 
         public InvoiceRepository() 
-        { 
+        {
+
+            
         }
 
         // Tilføj en faktura
         public void AddInvoice(Invoice invoice)
         {
             if (invoice == null) throw new ArgumentNullException(nameof(invoice)); 
-            _invoices.Add(invoice);
+            invoices.Add(invoice);
         }
 
         // Slet en faktura 
         public void DeleteInvoice(int invoiceNumber) 
         {
           
-            var invoice = _invoices.FirstOrDefault(i => i.InvoiceNumber == invoiceNumber);
+            var invoice = invoices.FirstOrDefault(i => i.InvoiceNumber == invoiceNumber);
             {
-                _invoices.Remove(invoice);
+                invoices.Remove(invoice);
             }
 
         }
@@ -37,25 +41,59 @@ namespace MetroTherm.Models
         public Invoice? SelectInvoice(int invoiceNumber)
         {
             if (invoiceNumber <= 0) return null;
-            return _invoices.FirstOrDefault(i => i.InvoiceNumber == invoiceNumber);
+            return invoices.FirstOrDefault(i => i.InvoiceNumber == invoiceNumber);
         }
 
         // Opdater en faktura
         public void UpdateInvoice(Invoice invoice)
         {
             if (invoice == null) throw new ArgumentNullException(nameof(invoice));
-            var index = _invoices.FindIndex(i => i.InvoiceNumber == invoice.InvoiceNumber); 
+            var index = invoices.FindIndex(i => i.InvoiceNumber == invoice.InvoiceNumber); 
             if (index >= 0) 
             {
-                _invoices[index] = invoice;
+                invoices[index] = invoice;
             }
         }
 
         // Hent alle fakturaer
         public List<Invoice> GetAll()
         {
-            return new List<Invoice>(_invoices);
+            return invoices;
         }
 
+        public bool GenerateInvoice(
+            string name,
+            string address,
+            DateTime fromDate,
+            DateTime toDate,
+            double subtotal,
+            double vat,
+            double total)
+        {
+            int invoiceNumber;
+
+            if (invoices.Count > 0)
+            {
+                // find highest invoice number if we already made previous ones
+                int max = invoices.Max(i => i.InvoiceNumber);
+                invoiceNumber = max + 1;
+            }
+            else
+            {
+                invoiceNumber = 1;
+            }
+            string path = $"Faktura{invoiceNumber}_{DateTime.Now:yyyMMdd_HHmmss}.txt";
+
+            // creates invoice and adds it to repository
+            Invoice invoice = new Invoice(invoiceNumber, name, address, fromDate, toDate, subtotal, vat, total);
+            AddInvoice(invoice);
+
+            // saves invoice
+            IDataHandler dataHandler = new DataHandler(path);
+            bool saved = dataHandler.SaveData(invoice.ToString());
+
+            return saved; // return true if saved, false otherwise.
+        }
+    
     }
 }
