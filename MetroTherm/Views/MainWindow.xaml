@@ -70,9 +70,9 @@
                     <!-- Søgning -->
                     <GroupBox Header="Søgning" Margin="0,0,0,10">
                         <StackPanel Margin="5">
-                            <TextBlock Text="Søg (kunde, udstyr...)" Margin="0,0,0,5"/>
-                            <TextBox x:Name="SearchTextBox" />
-                            <Button Content="Søg" Margin="0,10,0,0" />
+                            <TextBlock Text="Søg (kunde, udstyr...)" Margin="0,0,0,5" IsEnabled="False"/>
+                            <TextBox x:Name="SearchTextBox" IsEnabled="False" />
+                            <Button Content="Søg" Margin="0,10,0,0" IsEnabled="False" />
                         </StackPanel>
                     </GroupBox>
 
