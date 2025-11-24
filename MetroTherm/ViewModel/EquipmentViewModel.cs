@@ -42,6 +42,12 @@ namespace MetroTherm.ViewModel
             set { _equipment.Value = value; OnPropertyChanged(); }
         }
 
+        public string Timestamp
+        {
+            get { return _equipment.Timestamp; }
+            set { _equipment.Timestamp = value; OnPropertyChanged(); }
+        }
+
         public EquipmentViewModel(Equipment equipment)
         {
             _equipment = equipment;

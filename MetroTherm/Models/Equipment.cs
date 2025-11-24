@@ -10,6 +10,7 @@ namespace MetroTherm.Models
         public string ConnectionState { get; set; }
         public string ParameterName { get; set; }
         public string Value { get; set; }
+        public string Timestamp { get; set; }
 
         // not in viewmodel read only
         public string SerialNumber { get; }
@@ -18,7 +19,6 @@ namespace MetroTherm.Models
         public string ParameterId { get; }
         public string StrVal { get; }
         public string ParameterUnit { get; }
-        public string Timestamp { get; }
         public string Category { get; }
         public string Writable { get; }
         public string MinValue { get; }

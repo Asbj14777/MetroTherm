@@ -57,7 +57,7 @@
 
                     <!-- Periode-filter -->
                     <GroupBox Header="Periode" Margin="0,0,0,10">
-                        <StackPanel Margin="5">
+                        <StackPanel Margin="5" IsEnabled="False">
                             <TextBlock Text="Fra dato:"/>
                             <DatePicker x:Name="FromDatePicker" Margin="0,0,0,5"/>
                             <TextBlock Text="Til dato:"/>
@@ -193,10 +193,11 @@
                                       IsReadOnly="True"
                                       ItemsSource="{Binding SelectedCustomer.CustomerEquipments}">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="DeviceId" Binding="{Binding DeviceId}"/>
+                                    <DataGridTextColumn Header="Udstyr-ID" Binding="{Binding DeviceId}"/>
                                     <DataGridTextColumn Header="Produktnavn" Binding="{Binding ProductName}"/>
                                     <DataGridTextColumn Header="Parameter" Binding="{Binding ParameterName}"/>
                                     <DataGridTextColumn Header="Værdi" Binding="{Binding Value}"/>
+                                    <DataGridTextColumn Header="Periode" Binding="{Binding Timestamp}"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </GroupBox>

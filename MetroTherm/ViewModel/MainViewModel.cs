@@ -217,7 +217,10 @@ namespace MetroTherm.ViewModel
             {
                 ("Heat Energy E1",     PricePerKwh1),
                 ("Cooling energy E3",  PricePerKwh2),
-                ("MC2 Heat energy E1", PricePerKwh3)
+                ("MC2 Heat energy E1", PricePerKwh3),
+                ("Heat Energy E2",     PricePerKwh1),
+                ("Cooling energy E4",  PricePerKwh2),
+                ("MC2 Heat energy E2", PricePerKwh3)
             };
 
             foreach (var item in energyItems)
