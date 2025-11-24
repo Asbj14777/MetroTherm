@@ -281,46 +281,21 @@ namespace MetroTherm.ViewModel
             if (BillingCustomer == null)
             {
                 BillingEquipments = new ObservableCollection<EquipmentViewModel>();
+                ModelName1 = ModelName2 = ModelName3 = "";
                 return;
             }
 
-            string name = BillingCustomer.Name?.Trim();
-
-            string mustContain = name switch
-            {
-                "Lene Mortensen" => "RXpO4",
-                "Anders Poulsen" => "gK6s8",
-                _ => null
-            };
-
-            IEnumerable<EquipmentViewModel> filtered;
-
-            if (!string.IsNullOrEmpty(mustContain))
-            {
-                filtered = Equipments.Where(e =>
-                !string.IsNullOrEmpty(e.DeviceId) &&
-                e.DeviceId.Contains(mustContain, StringComparison.OrdinalIgnoreCase)).GroupBy(e => e.ParameterName).Select(g => g.First());
-
-            }
-            else
-            {
-                filtered = Enumerable.Empty<EquipmentViewModel>();
-            }
-
-            BillingEquipments = new ObservableCollection<EquipmentViewModel>(filtered);
-
-
-            var models = BillingEquipments
-                .Select(e => e.ParameterName)
-                .Take(3)
+            // only finds equipment unique by name and no duplicate
+            var models = BillingCustomer.CustomerEquipments
+                .GroupBy(e => e.ParameterName)
+                .Select(g => g.First())
                 .ToList();
 
-            ModelName1 = models.Count > 0 ? models[0] : "";
-            ModelName2 = models.Count > 1 ? models[1] : "";
-            ModelName3 = models.Count > 2 ? models[2] : "";
+            BillingEquipments = new ObservableCollection<EquipmentViewModel>(models);
 
-
+            ModelName1 = models.ElementAtOrDefault(0)?.ParameterName ?? "";
+            ModelName2 = models.ElementAtOrDefault(1)?.ParameterName ?? "";
+            ModelName3 = models.ElementAtOrDefault(2)?.ParameterName ?? "";
         }
-
     }
 }
