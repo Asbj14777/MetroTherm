@@ -58,6 +58,7 @@ namespace MetroTherm.ViewModel
 
         public ICommand GenerateInvoice { get; }
         public ICommand GetCalculations { get; }
+        public ICommand ShowEquipment { get; }
         public MainViewModel()
         {
             equipmentRepo = new EquipmentRepository();
@@ -83,6 +84,15 @@ namespace MetroTherm.ViewModel
                 canExecute: _ => BillingCustomer != null && Subtotal > 1
             );
 
+            ShowEquipment = new RelayCommand(execute: _ => showEquipment(), canExecute: _ => SelectedEquipment != null); 
+
+
+        }
+
+
+        private void showEquipment()
+        {
+            MessageBox.Show($"{SelectedEquipment.Value}, {SelectedEquipment.ParameterName}");
         }
 
         private CustomerViewModel _billingCustomer;

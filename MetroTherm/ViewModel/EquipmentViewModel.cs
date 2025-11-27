@@ -44,7 +44,11 @@ namespace MetroTherm.ViewModel
 
         public string Timestamp
         {
-            get { return _equipment.Timestamp; }
+            get 
+            {
+                DateTime val = DateTime.Parse(_equipment.Timestamp);
+                return $"{val:dd-MM-yyyy}";  
+            }
             set { _equipment.Timestamp = value; OnPropertyChanged(); }
         }
 
