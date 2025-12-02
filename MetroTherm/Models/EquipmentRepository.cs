@@ -65,20 +65,5 @@ namespace MetroTherm.Models
         {
             return equipments;
         }
-
-        public double GetTotalKwh(CustomerViewModel customer, string unitType, DateTime fromDate, DateTime toDate)
-        {
-            if (customer == null || !equipments.Any())
-                return 0;
-
-            return equipments.Where
-                            (equipment => equipment != null
-                            && string.Equals(equipment.DeviceId, customer.ID, StringComparison.OrdinalIgnoreCase)
-                            && DateTime.TryParse(equipment.Timestamp, out var timstamp) && timstamp >= fromDate && timstamp <= toDate
-                            && string.Equals(equipment.ParameterName, unitType, StringComparison.OrdinalIgnoreCase) 
-                            && double.TryParse(equipment.Value, out _))
-                
-                .Sum(equipment => double.Parse(equipment.Value));
-        }
     }
 }
