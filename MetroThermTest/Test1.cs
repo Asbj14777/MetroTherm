@@ -86,9 +86,12 @@ namespace MetroThermTest
             MainViewModel mvm = new MainViewModel();
             mvm.Subtotal = 420;
 
+            // act
+            bool canExecute = mvm.GenerateInvoice.CanExecute(null);
+
             // assert
-            // CanExecute should be false since BillingCustomer is null/not selected
-            Assert.IsFalse(mvm.GenerateInvoice.CanExecute(null));
+            // canExecute should be false since BillingCustomer is null/not selected
+            Assert.IsFalse(canExecute);
         }
     }
 }
