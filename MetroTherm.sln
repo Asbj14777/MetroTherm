@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36414.22
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11222.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroTherm", "MetroTherm\MetroTherm.csproj", "{B3031C5F-34DD-4562-AAF2-704EA3D63772}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroThermTest", "MetroThermTest\MetroThermTest.csproj", "{66A379CF-4657-459D-AC48-00077A0D8166}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B3031C5F-34DD-4562-AAF2-704EA3D63772}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3031C5F-34DD-4562-AAF2-704EA3D63772}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3031C5F-34DD-4562-AAF2-704EA3D63772}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66A379CF-4657-459D-AC48-00077A0D8166}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66A379CF-4657-459D-AC48-00077A0D8166}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66A379CF-4657-459D-AC48-00077A0D8166}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66A379CF-4657-459D-AC48-00077A0D8166}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
