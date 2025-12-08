@@ -19,14 +19,14 @@ namespace MetroTherm.Models
             
         }
 
-        // Tilføj en faktura
+        // add invoice
         public void AddInvoice(Invoice invoice)
         {
             if (invoice == null) throw new ArgumentNullException(nameof(invoice)); 
             invoices.Add(invoice);
         }
 
-        // Slet en faktura 
+        // delete invoice
         public void DeleteInvoice(int invoiceNumber) 
         {
           
@@ -37,14 +37,14 @@ namespace MetroTherm.Models
 
         }
 
-        // Vælg en faktura
+        // choose invoice
         public Invoice? SelectInvoice(int invoiceNumber)
         {
             if (invoiceNumber <= 0) return null;
             return invoices.FirstOrDefault(i => i.InvoiceNumber == invoiceNumber);
         }
 
-        // Opdater en faktura
+        // update invoice
         public void UpdateInvoice(Invoice invoice)
         {
             if (invoice == null) throw new ArgumentNullException(nameof(invoice));
@@ -55,7 +55,7 @@ namespace MetroTherm.Models
             }
         }
 
-        // Hent alle fakturaer
+        // get invoice
         public List<Invoice> GetAll()
         {
             return invoices;

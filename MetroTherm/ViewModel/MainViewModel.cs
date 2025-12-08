@@ -59,12 +59,11 @@ namespace MetroTherm.ViewModel
         public ICommand GenerateInvoice { get; }
         public ICommand GetCalculations { get; }
         public ICommand ShowEquipment { get; }
+
         public MainViewModel()
         {
             equipmentRepo = new EquipmentRepository();
-
             customerRepo = new CustomerRepository();
-
             invoiceRepository = new InvoiceRepository();
 
             foreach (Equipment equipment in equipmentRepo.GetAll())
@@ -235,14 +234,37 @@ namespace MetroTherm.ViewModel
 
             foreach (var item in energyItems)
             {
-                double kwh = equipmentRepo.GetTotalKwh(BillingCustomer, item.Type, FromDate, ToDate);
-                subtotal += kwh * item.PricePerKwh;
+                double totalKwh = 0.0;
+                // calculates totalKwh per item
+                foreach (EquipmentViewModel eq in BillingCustomer.CustomerEquipments)
+                {
+                    // checks if parameter type matches item type
+                    if (eq.ParameterName == item.Type)
+                    {
+                        // checks date range
+                        DateTime timestamp;
+                        if (DateTime.TryParse(eq.Timestamp, out timestamp))
+                        {
+                            if (timestamp >= FromDate && timestamp <= ToDate)
+                            {
+                                // parses kwh value
+                                double value;
+                                if (double.TryParse(eq.Value, out value))
+                                {
+                                    totalKwh += value;
+                                }
+                            }
+                        }
+                    }
+                }
+                // add to subtotal
+                subtotal += totalKwh * item.PricePerKwh;
             }
-
             Subtotal = subtotal;
             Vat = (Subtotal * vat);
             Total = (Subtotal + Vat);
         }
+
         private void SaveInvoice()
         {
             bool saved = invoiceRepository.GenerateInvoice(
@@ -250,7 +272,7 @@ namespace MetroTherm.ViewModel
                 BillingCustomer.Address,
                 FromDate,
                 ToDate,
-                Subtotal,
+                Subtotal, 
                 Vat,
                 Total
                 );
@@ -299,10 +321,21 @@ namespace MetroTherm.ViewModel
             }
 
             // only finds equipment unique by name and no duplicate
-            var models = BillingCustomer.CustomerEquipments
-                .GroupBy(e => e.ParameterName)
-                .Select(g => g.First())
-                .ToList();
+            List<EquipmentViewModel> models = new List<EquipmentViewModel>();
+            foreach (EquipmentViewModel eq in BillingCustomer.CustomerEquipments)
+            {
+                bool exist = false;
+                foreach(EquipmentViewModel m in models)
+                {
+                    if (m.ParameterName == eq.ParameterName)
+                    {
+                        exist = true;
+                        break;
+                    }
+                }
+                if (!exist)
+                    models.Add(eq);
+            }
 
             BillingEquipments = new ObservableCollection<EquipmentViewModel>(models);
 

@@ -16,6 +16,8 @@ namespace MetroTherm.Models
             Address = address;
         }
 
+        public Customer() { } // default customer for testing
+
         public override string ToString() => $"ID : {ID}, Name: {Name}, Address: {Address}"; 
     }
 }

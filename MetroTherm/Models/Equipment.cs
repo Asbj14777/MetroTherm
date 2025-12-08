@@ -62,6 +62,8 @@ namespace MetroTherm.Models
             EnumValues = enumValue;
         }
 
+        public Equipment() { } // default equipment for testing
+
         public override string ToString() =>
              $"DeviceId: {DeviceId}, " +
              $"SerialNumber: {SerialNumber}, " +
