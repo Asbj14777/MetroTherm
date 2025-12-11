@@ -6,6 +6,7 @@ namespace MetroThermTest
     [TestClass]
     public sealed class Test1
     {
+        private string today = DateTime.Today.ToString("yyyy-MM-dd");
         [TestMethod]
         public void CustomerUsage_ShouldSumAllEquipmentValues()
         {
@@ -23,7 +24,7 @@ namespace MetroThermTest
         }
 
         [TestMethod]
-        public void GetCalulations_ShouldCalculateConsumptionBill()
+        public void GetCalulations_ShouldCalculateConsumptionBill1()
         {
             // arrange
             MainViewModel mvm = new MainViewModel();
@@ -57,6 +58,28 @@ namespace MetroThermTest
             Assert.AreEqual(expectedVat, mvm.Vat);
             Assert.AreEqual(expectedTotal, mvm.Total);
         }
+
+[TestMethod]
+public void GetCalulations_ShouldCalculateConsumptionBill()
+{
+    // ARRANGE
+    var mvm = new MainViewModel
+    {
+        BillingCustomer = new CustomerViewModel(new Customer("1", "bob", "storvej 1")),
+        PricePerKwh1 = 0.1, PricePerKwh2 = 0.2
+    };
+    mvm.BillingCustomer.CustomerEquipments.Add(new EquipmentViewModel(
+        new Equipment { ParameterName = "Heat energy E1", Value = "69", Timestamp = today }));
+    mvm.BillingCustomer.CustomerEquipments.Add(new EquipmentViewModel(
+        new Equipment { ParameterName = "Cooling energy E3", Value = "420", Timestamp = today }));
+    // ACT
+    mvm.GetCalculations.Execute(null);
+    // ASSERT
+    double subtotal = (69 * 0.1) + (420 * 0.2); // 90.9
+    Assert.AreEqual(subtotal, mvm.Subtotal);
+    Assert.AreEqual(subtotal * 0.25, mvm.Vat);
+    Assert.AreEqual(subtotal * 1.25, mvm.Total);
+}
 
         [TestMethod]
         public void GenerateInvoice_ShouldReturnTrueWhenValid()
